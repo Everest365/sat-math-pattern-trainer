@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SAT Math 750 Lab | Module 2 Pattern &amp; Desmos Trainer</title>
-  <script async src="https://desmos.com"></script>
   <style>
     :root {
       --bg: #0b1120;
@@ -216,27 +215,22 @@ document.getElementById("score-text").innerText = "Solved: " + solved;
 solBox.innerHTML = currentProblem.solution;
 solBox.style.display = "block";
 }
-function toggleDesmos() {
-var panel = document.getElementById("desmos-panel");
-var ws = document.getElementById("workspace");
-var btn = document.getElementById("desmos-btn");
-if (panel.style.display === "none") {
-panel.style.display = "block";
-ws.classList.add("split");
-btn.innerText = "Hide Desmos Calculator";
-if (!calculator) {
-if (typeof Desmos !== "undefined") {
-calculator = Desmos.GraphingCalculator(document.getElementById("calculator"));
-} else {
-document.getElementById("calculator").innerHTML = "Desmos API blocked on this network. Open desmos.com in a separate tab.";
-}
-}
-} else {
-panel.style.display = "none";
-ws.classList.remove("split");
-btn.innerText = "Show Desmos Calculator";
-}
-}
+    function toggleDesmos() {
+      var panel = document.getElementById("desmos-panel");
+      var ws = document.getElementById("workspace");
+      var btn = document.getElementById("desmos-btn");
+      if (panel.style.display === "none") {
+        panel.style.display = "block";
+        ws.classList.add("split");
+        btn.innerText = "Hide Desmos Calculator";
+        document.getElementById("calculator").innerHTML = '<iframe src="https://desmos.com" width="100%" height="480" style="border:none; border-radius:8px;"></iframe>';
+      } else {
+        panel.style.display = "none";
+        ws.classList.remove("split");
+        btn.innerText = "Show Desmos Calculator";
+      }
+    }
+
 document.getElementById("topic-select").addEventListener("change", generateProblem);
 document.getElementById("new-btn").addEventListener("click", generateProblem);
 document.getElementById("check-btn").addEventListener("click", checkAnswer);
