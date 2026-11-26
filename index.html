@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAT Math 750 Lab | Module 2 Pattern & Desmos Trainer</title>
+  <title>SAT Math 750 Lab | Module 2 Pattern &amp; Desmos Trainer</title>
   <script async src="https://desmos.com"></script>
-
   <style>
     :root {
       --bg: #0b1120;
@@ -46,32 +45,32 @@
       <span style="color:var(--muted); font-size:0.9rem;">Infinite randomized Module 2 patterns + built-in Desmos</span>
     </div>
     <div class="stats">
-      <span id="streak-text">Streak: 0 🔥</span>
+      <span id="streak-text">Streak: 0</span>
       <span id="score-text">Solved: 0</span>
-      <button onclick="toggleDesmos()" id="desmos-btn">Show Desmos Calculator</button>
+      <button type="button" id="desmos-btn">Show Desmos Calculator</button>
     </div>
   </header>
 
   <div class="workspace" id="workspace">
     <div class="card">
       <div class="toolbar">
-        <select id="topic-select" onchange="generateProblem()">
+        <select id="topic-select">
           <option value="all">All Hard Patterns (Mixed)</option>
           <option value="inf_solutions">Infinitely Many Solutions (Ratio Trick)</option>
           <option value="discriminant">Quadratic Discriminant (No Real Solutions)</option>
-          <option value="vertex">Vertex Form & Parabola Constants</option>
+          <option value="vertex">Vertex Form &amp; Parabola Constants</option>
           <option value="circles">Circle Equations (Completing the Square)</option>
-          <option value="exponential">Exponential Growth & Percent Rate</option>
+          <option value="exponential">Exponential Growth &amp; Percent Rate</option>
           <option value="trig">Right-Triangle Trig (Complementary Angles)</option>
         </select>
-        <button class="primary" onclick="generateProblem()">New Problem ↻</button>
+        <button type="button" class="primary" id="new-btn">New Problem</button>
       </div>
 
-      <div class="question-box" id="question-text"></div>
+      <div class="question-box" id="question-text">Loading problem...</div>
 
       <div class="input-row">
-        <input type="text" id="user-answer" placeholder="Enter exact number or fraction (e.g., 14 or 7/5)" onkeydown="if(event.key==='Enter') checkAnswer()" />
-        <button class="primary" onclick="checkAnswer()">Check</button>
+        <input type="text" id="user-answer" placeholder="Enter exact number or fraction (e.g., 14 or 7/5)" />
+        <button type="button" class="primary" id="check-btn">Check</button>
       </div>
 
       <div id="feedback" style="font-weight:700; min-height:24px;"></div>
@@ -84,137 +83,107 @@
   </div>
 
   <script>
-    let currentProblem = null;
-    let streak = 0;
-    let solved = 0;
-    let calculator = null;
-
-    function toggleDesmos() {
-      const panel = document.getElementById('desmos-panel');
-      const ws = document.getElementById('workspace');
-      const btn = document.getElementById('desmos-btn');
-      if (panel.style.display === 'none') {
-        panel.style.display = 'block';
-        ws.classList.add('split');
-        btn.innerText = 'Hide Desmos Calculator';
-        if (!calculator) {
-          calculator = Desmos.GraphingCalculator(document.getElementById('calculator'));
-        }
-      } else {
-        panel.style.display = 'none';
-        ws.classList.remove('split');
-        btn.innerText = 'Show Desmos Calculator';
-      }
-    }
+    var currentProblem = null;
+    var streak = 0;
+    var solved = 0;
+    var calculator = null;
 
     function randInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     function generateProblem() {
-      document.getElementById('user-answer').value = '';
-      document.getElementById('feedback').innerText = '';
-      document.getElementById('solution-box').style.display = 'none';
+      document.getElementById("user-answer").value = "";
+      document.getElementById("feedback").innerText = "";
+      document.getElementById("solution-box").style.display = "none";
 
-      const choice = document.getElementById('topic-select').value;
-      const types = ['inf_solutions', 'discriminant', 'vertex', 'circles', 'exponential', 'trig'];
-      const type = choice === 'all' ? types[randInt(0, types.length - 1)] : choice;
+      var choice = document.getElementById("topic-select").value;
+      var types = ["inf_solutions", "discriminant", "vertex", "circles", "exponential", "trig"];
+      var type = (choice === "all") ? types[randInt(0, types.length - 1)] : choice;
 
-      if (type === 'inf_solutions') {
-        const mult = randInt(2, 5);
-        const d = randInt(2, 9);
-        const a = d * mult;
-        const e = randInt(3, 11);
-        const f = randInt(4, 15);
-        const c = f * mult;
+      if (type === "inf_solutions") {
+        var mult = randInt(2, 5);
+        var d = randInt(2, 9);
+        var a = d * mult;
+        var e = randInt(3, 11);
+        var f = randInt(4, 15);
+        var c = f * mult;
 
         currentProblem = {
-          text: `In the system of equations below, <em>b</em> is a constant. If the system has <strong>infinitely many solutions</strong>, what is the value of <strong>a / d</strong> given:<br><br>
-                 <code>${a}x + by = ${c}</code><br>
-                 <code>${d}x + ${e}y = ${f}</code>`,
+          text: "In the system of equations below, <em>b</em> is a constant. If the system has <strong>infinitely many solutions</strong>, what is the value of <strong>a / d</strong> given:<br><br><code>" + a + "x + by = " + c + "</code><br><code>" + d + "x + " + e + "y = " + f + "</code>",
           answerVal: mult,
-          answerDisplay: `${mult}`,
-          solution: `<strong>Fast Algebra Method:</strong> For infinitely many solutions, the two equations must be scalar multiples of each other. Compare the x-coefficients or constants: <code>${a} / ${d} = ${mult}</code> (and <code>${c} / ${f} = ${mult}</code>).<br><br>
-                     <strong>Desmos Trick:</strong> Enter both equations in Desmos, add a slider for <code>b</code>, and set <code>b = ${e * mult}</code> until both lines overlap completely.`
+          answerDisplay: String(mult),
+          solution: "<strong>Fast Algebra Method:</strong> For infinitely many solutions, the equations must be scalar multiples. Compare the x-coefficients or constants: <code>" + a + " / " + d + " = " + mult + "</code>.<br><br><strong>Desmos Trick:</strong> Type both equations in Desmos, add a slider for <code>b</code>, and set <code>b = " + (e * mult) + "</code> until the two lines overlap completely."
         };
-      } else if (type === 'discriminant') {
-        const c = randInt(8, 35);
-        const maxB = Math.floor(Math.sqrt(4 * c - 0.01));
+      } else if (type === "discriminant") {
+        var cVal = randInt(8, 35);
+        var maxB = Math.floor(Math.sqrt(4 * cVal - 0.01));
 
         currentProblem = {
-          text: `In the equation <code>x² + bx + ${c} = 0</code>, <em>b</em> is a positive integer constant. If the equation has <strong>no real solutions</strong>, what is the <strong>greatest possible value</strong> of <em>b</em>?`,
+          text: "In the equation <code>x&sup2; + bx + " + cVal + " = 0</code>, <em>b</em> is a positive integer constant. If the equation has <strong>no real solutions</strong>, what is the <strong>greatest possible value</strong> of <em>b</em>?",
           answerVal: maxB,
-          answerDisplay: `${maxB}`,
-          solution: `<strong>Algebra Method:</strong> Set the discriminant <code>b² - 4ac &lt; 0</code>:<br>
-                     <code>b² - 4(1)(${c}) &lt; 0</code> → <code>b² &lt; ${4 * c}</code>.<br>
-                     Taking the square root gives <code>b &lt; ${Math.sqrt(4 * c).toFixed(2)}</code>, so the greatest integer is <strong>${maxB}</strong>.<br><br>
-                     <strong>Desmos Trick:</strong> Graph <code>y = x² + bx + ${c}</code> with a slider for <code>b</code> and find the largest integer where the parabola stays strictly above the x-axis.`
+          answerDisplay: String(maxB),
+          solution: "<strong>Algebra Method:</strong> Set discriminant <code>b&sup2; - 4ac &lt; 0</code>: <code>b&sup2; &lt; " + (4 * cVal) + "</code>, so <code>b &lt; " + Math.sqrt(4 * cVal).toFixed(2) + "</code>. The greatest integer is <strong>" + maxB + "</strong>.<br><br><strong>Desmos Trick:</strong> Graph <code>y = x&sup2; + bx + " + cVal + "</code> with a slider for <code>b</code> and find the largest integer where the parabola stays above the x-axis."
         };
-      } else if (type === 'vertex') {
-        const a = randInt(2, 4);
-        const h = randInt(2, 6);
-        const k = randInt(-10, -2);
-        const x1 = h + 2;
-        const y1 = a * Math.pow(x1 - h, 2) + k;
-        const ans = a + k;
+      } else if (type === "vertex") {
+        var aVal = randInt(2, 4);
+        var h = randInt(2, 6);
+        var k = randInt(-10, -2);
+        var x1 = h + 2;
+        var y1 = aVal * Math.pow(x1 - h, 2) + k;
+        var ans = aVal + k;
 
         currentProblem = {
-          text: `A quadratic function <em>f</em> has a vertex at <code>(${h}, ${k})</code> and passes through the point <code>(${x1}, ${y1})</code>. What is the value of <strong>f(${h - 1})</strong>?`,
+          text: "A quadratic function <em>f</em> has a vertex at <code>(" + h + ", " + k + ")</code> and passes through <code>(" + x1 + ", " + y1 + ")</code>. What is the value of <strong>f(" + (h - 1) + ")</strong>?",
           answerVal: ans,
-          answerDisplay: `${ans}`,
-          solution: `<strong>Algebra Method:</strong> Use vertex form <code>f(x) = a(x - ${h})² + (${k})</code>.<br>
-                     Plug in <code>(${x1}, ${y1})</code>: <code>${y1} = a(${x1} - ${h})² + (${k})</code> → <code>${y1 - k} = 4a</code> → <code>a = ${a}</code>.<br>
-                     Then <code>f(${h - 1}) = ${a}(${h - 1} - ${h})² + (${k}) = ${a} + (${k}) = <strong>${ans}</strong></code>.<br><br>
-                     <strong>Desmos Trick:</strong> Use quadratic regression <code>y₁ ~ a(x₁ - ${h})² + ${k}</code> with a table containing <code>(${x1}, ${y1})</code>.`
+          answerDisplay: String(ans),
+          solution: "<strong>Algebra Method:</strong> Use vertex form <code>f(x) = a(x - " + h + ")&sup2; + (" + k + ")</code>. Plugging in <code>(" + x1 + ", " + y1 + ")</code> gives <code>a = " + aVal + "</code>. Then <code>f(" + (h - 1) + ") = " + aVal + "(1) + (" + k + ") = <strong>" + ans + "</strong></code>."
         };
-      } else if (type === 'circles') {
-        const h = randInt(2, 6);
-        const k = randInt(2, 6);
-        const r = randInt(3, 7);
-        const D = -2 * h;
-        const E = -2 * k;
-        const F = h * h + k * k - r * r;
+      } else if (type === "circles") {
+        var hc = randInt(2, 6);
+        var kc = randInt(2, 6);
+        var r = randInt(3, 7);
+        var D = -2 * hc;
+        var E = -2 * kc;
+        var F = hc * hc + kc * kc - r * r;
 
         currentProblem = {
-          text: `In the xy-plane, the graph of <code>x² ${D}x + y² ${E}y + (${F}) = 0</code> is a circle. What is the <strong>radius</strong> of the circle?`,
+          text: "In the xy-plane, the graph of <code>x&sup2; " + D + "x + y&sup2; " + E + "y + (" + F + ") = 0</code> is a circle. What is the <strong>radius</strong> of the circle?",
           answerVal: r,
-          answerDisplay: `${r}`,
-          solution: `<strong>Completing the Square:</strong> Group x and y terms and take half of each linear coefficient squared:<br>
-                     <code>(x - ${h})² + (y - ${k})² = ${-F} + ${h * h} + ${k * k} = ${r * r}</code>.<br>
-Since r² = ${r * r}, the radius is r = ${r}.`
+          answerDisplay: String(r),
+          solution: "<strong>Completing the Square:</strong> <code>(x - " + hc + ")&sup2; + (y - " + kc + ")&sup2; = " + (r * r) + "</code>, so <code>r = <strong>" + r + "</strong></code>.<br><br><strong>Desmos Trick:</strong> Graph the equation in Desmos, click the top and bottom points of the circle, and divide the diameter by 2."
+        };
+      } else if (type === "exponential") {
+        var initial = randInt(2, 9) * 100;
+        var pct = randInt(4, 18);
+        var base = (1 + pct / 100).toFixed(2);
+        var years = randInt(3, 6);
 
+        currentProblem = {
+          text: "The function <code>P(t) = " + initial + "(" + base + ")<sup>t/" + years + "</sup></code> models a population <em>t</em> years after 2020. By what <strong>percent</strong> does the population increase every <strong>" + years + " years</strong>?",
+          answerVal: pct,
+          answerDisplay: pct + "% (enter " + pct + ")",
+          solution: "<strong>Exponent Structure Rule:</strong> Every time <code>t</code> increases by <code>" + years + "</code>, the exponent increases by 1, multiplying by <code>" + base + "</code>, which is a <strong>" + pct + "%</strong> increase."
+        };
+      } else {
+        var num = randInt(3, 8);
+        var den = randInt(num + 1, 13);
 
-Desmos Trick: Graph the equation directly in Desmos, click the top and bottom points of the circle, and divide the diameter by 2.`
-};
-} else if (type === 'exponential') {
-const initial = randInt(2, 9) * 100;
-const pct = randInt(4, 18);
-const base = (1 + pct / 100).toFixed(2);
-const years = randInt(3, 6);
-currentProblem = {
-text: The function <code>P(t) = ${initial}(${base})<sup>t/${years}</sup></code> models a population <em>t</em> years after 2020. By what <strong>percent</strong> does the population increase every <strong>${years} years</strong>?,
-answerVal: pct,
-answerDisplay: ${pct}% (enter ${pct}),
-solution: <strong>Exponent Structure Rule:</strong> Notice the exponent is <code>t/${years}</code>. Every time <code>t</code> increases by <code>${years}</code>, the exponent increases by 1, multiplying the population by <code>${base}</code>.<br> Since <code>${base} = 1 + ${pct / 100}</code>, the growth rate every ${years} years is <strong>${pct}%</strong>.
-};
-} else {
-const num = randInt(3, 8);
-const den = randInt(num + 1, 13);
-currentProblem = {
-text: In right triangle <em>ABC</em>, angle <em>C</em> is 90° and <code>sin(A) = ${num}/${den}</code>. What is the value of <strong>cos(B)</strong>? (Enter as a fraction like ${num}/${den}),
+        currentProblem = {
+text: "In right triangle ABC, angle C is 90° and sin(A) = " + num + "/" + den + ". What is the value of cos(B)? (Enter as a fraction like " + num + "/" + den + ")",
 answerVal: num / den,
-answerDisplay: ${num}/${den},
-solution: <strong>Complementary Angle Identity:</strong> Because angles <em>A</em> and <em>B</em> are acute angles in a right triangle, <code>A + B = 90°</code>.<br> On the SAT, <code>sin(A) = cos(90° - A) = cos(B)</code> always! Therefore, <code>cos(B) = <strong>${num}/${den}</strong></code>.
+answerDisplay: num + "/" + den,
+solution: "Complementary Angle Identity: Since A + B = 90°, sin(A) = cos(B) = " + num + "/" + den + "."
 };
 }
-document.getElementById('question-text').innerHTML = currentProblem.text;
+document.getElementById("question-text").innerHTML = currentProblem.text;
 }
 function parseFraction(str) {
-str = str.trim().replace('%', '');
-const slashIdx = str.indexOf('/');
+str = str.trim().replace("%", "");
+var slashIdx = str.indexOf("/");
 if (slashIdx > 0) {
-const num = Number(str.slice(0, slashIdx));
-const den = Number(str.slice(slashIdx + 1));
+var num = Number(str.slice(0, slashIdx));
+var den = Number(str.slice(slashIdx + 1));
 if (!isNaN(num) && !isNaN(den) && den !== 0) {
 return num / den;
 }
@@ -222,28 +191,57 @@ return num / den;
 return Number(str);
 }
 function checkAnswer() {
-const raw = document.getElementById('user-answer').value;
-const val = parseFraction(raw);
-const fb = document.getElementById('feedback');
-const solBox = document.getElementById('solution-box');
-if (isNaN(val) || raw.trim() === '') {
-fb.style.color = 'var(--danger)';
-fb.innerText = 'Please enter a valid number or fraction.';
+if (!currentProblem) return;
+var raw = document.getElementById("user-answer").value;
+var val = parseFraction(raw);
+var fb = document.getElementById("feedback");
+var solBox = document.getElementById("solution-box");
+if (isNaN(val) || raw.trim() === "") {
+fb.style.color = "var(--danger)";
+fb.innerText = "Please enter a valid number or fraction.";
 return;
 }
 if (Math.abs(val - currentProblem.answerVal) < 0.001) {
-fb.style.color = 'var(--success)';
-fb.innerText = Correct! (${currentProblem.answerDisplay});
+fb.style.color = "var(--success)";
+fb.innerText = "Correct! (" + currentProblem.answerDisplay + ")";
 streak++;
 solved++;
 } else {
-fb.style.color = 'var(--danger)';
-fb.innerText = Incorrect — the answer is ${currentProblem.answerDisplay}.;
+fb.style.color = "var(--danger)";
+fb.innerText = "Incorrect — the answer is " + currentProblem.answerDisplay + ".";
 streak = 0;
 }
-document.getElementById('streak-text').innerText = Streak: ${streak} 🔥;
-document.getElementById('score-text').innerText = Solved: ${solved};
+document.getElementById("streak-text").innerText = "Streak: " + streak;
+document.getElementById("score-text").innerText = "Solved: " + solved;
 solBox.innerHTML = currentProblem.solution;
-solBox.style.display = 'block';
+solBox.style.display = "block";
 }
+function toggleDesmos() {
+var panel = document.getElementById("desmos-panel");
+var ws = document.getElementById("workspace");
+var btn = document.getElementById("desmos-btn");
+if (panel.style.display === "none") {
+panel.style.display = "block";
+ws.classList.add("split");
+btn.innerText = "Hide Desmos Calculator";
+if (!calculator) {
+if (typeof Desmos !== "undefined") {
+calculator = Desmos.GraphingCalculator(document.getElementById("calculator"));
+} else {
+document.getElementById("calculator").innerHTML = "Desmos API blocked on this network. Open desmos.com in a separate tab.";
+}
+}
+} else {
+panel.style.display = "none";
+ws.classList.remove("split");
+btn.innerText = "Show Desmos Calculator";
+}
+}
+document.getElementById("topic-select").addEventListener("change", generateProblem);
+document.getElementById("new-btn").addEventListener("click", generateProblem);
+document.getElementById("check-btn").addEventListener("click", checkAnswer);
+document.getElementById("desmos-btn").addEventListener("click", toggleDesmos);
+document.getElementById("user-answer").addEventListener("keydown", function(e) {
+if (e.key === "Enter") checkAnswer();
+});
 generateProblem();
