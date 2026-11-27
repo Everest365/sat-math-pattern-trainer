@@ -201,13 +201,24 @@
 
     function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
-    function renderMath() {
-      if (window.renderMathInElement) {
-        renderMathInElement(document.body, {
-          delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }]
-        });
+        function renderMath() {
+      if (!window.katex) {
+        setTimeout(renderMath, 100);
+        return;
       }
+      var targets = document.querySelectorAll("#question-text, #solution-box, #ref-box");
+      targets.forEach(function(el) {
+        var html = el.innerHTML;
+        html = html.replace(/\$\$([\s\S]+?)\$\$/g, function(_, tex) {
+          return katex.renderToString(tex, { displayMode: true, throwOnError: false });
+        });
+        html = html.replace(/\$([^\$]+?)\$/g, function(_, tex) {
+          return katex.renderToString(tex, { displayMode: false, throwOnError: false });
+        });
+        el.innerHTML = html;
+      });
     }
+
 
     function startTimer() {
       clearInterval(timerInterval);
