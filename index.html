@@ -4,62 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SAT Math 750+ Lab | Adaptive Module 2 &amp; Desmos Trainer</title>
-
   <link rel="preconnect" href="https://googleapis.com">
   <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://jsdelivr.net">
   <script defer src="https://jsdelivr.net"></script>
   <script defer src="https://jsdelivr.net"></script>
-
   <style>
     :root {
-      --bg: #090d16;
-      --sidebar: #0f1623;
-      --card: #151e2e;
-      --card-hover: #1c273b;
-      --border: #263349;
-      --accent: #3b82f6;
-      --accent-glow: rgba(59, 130, 246, 0.22);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
+      --bg: #090d16; --sidebar: #0f1623; --card: #151e2e; --card-hover: #1c273b;
+      --border: #263349; --accent: #3b82f6; --accent-glow: rgba(59, 130, 246, 0.22);
+      --text: #f8fafc; --muted: #94a3b8; --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
     }
-
     * { box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
     body { margin: 0; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
-
-    /* Left Bedrock-Style Skill Sidebar */
-    .sidebar {
-      width: 285px;
-      background: var(--sidebar);
-      border-right: 1px solid var(--border);
-      padding: 20px 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 16px;
-      flex-shrink: 0;
-    }
+    .sidebar { width: 285px; background: var(--sidebar); border-right: 1px solid var(--border); padding: 20px 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; flex-shrink: 0; }
     .sidebar.collapsed { display: none; }
     .brand { padding-bottom: 14px; border-bottom: 1px solid var(--border); }
     .brand h1 { margin: 0; font-size: 1.25rem; font-weight: 800; color: #60a5fa; letter-spacing: -0.02em; }
     .brand p { margin: 4px 0 0; font-size: 0.78rem; color: var(--muted); }
-
     .nav-section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 12px 0 6px 6px; }
     .skill-list { display: flex; flex-direction: column; gap: 5px; }
-    .skill-btn {
-      width: 100%;
-      text-align: left;
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      padding: 9px 12px;
-      color: var(--text);
-      cursor: pointer;
-      transition: 0.15s;
-    }
+    .skill-btn { width: 100%; text-align: left; background: transparent; border: 1px solid transparent; border-radius: 10px; padding: 9px 12px; color: var(--text); cursor: pointer; transition: 0.15s; }
     .skill-btn:hover { background: var(--card); }
     .skill-btn.active { background: var(--card); border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-glow); }
     .skill-top { display: flex; justify-content: space-between; align-items: center; font-size: 0.83rem; font-weight: 600; margin-bottom: 5px; }
@@ -67,893 +32,656 @@
     .mini-track { height: 5px; background: #090d16; border-radius: 999px; overflow: hidden; }
     .mini-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.3s ease; }
     .mini-fill.mastered { background: var(--success); }
-
-    .missed-badge {
-      background: rgba(239, 68, 68, 0.18);
-      color: #f87171;
-      padding: 2px 7px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-
-    .reset-btn {
-      width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
+    .missed-badge { background: rgba(239, 68, 68, 0.18); color: #f87171; padding: 2px 7px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
+    .reset-btn { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 0.78rem; font-weight: 600; cursor: pointer; }
     .reset-btn:hover { color: #f87171; border-color: #f87171; }
-
-    /* Main Content Area */
     .main { flex: 1; display: flex; flex-direction: column; padding: 20px 26px; max-width: 100%; overflow-x: hidden; }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
+    .topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
     .stat-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .pill {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #cbd5e1;
-    }
+    .pill { background: var(--card); border: 1px solid var(--border); padding: 7px 12px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; color: #cbd5e1; }
     .pill.timer-warn { border-color: var(--warning); color: #fbbf24; }
-
-    button.action-btn {
-      padding: 8px 13px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.83rem;
-      cursor: pointer;
-      transition: 0.15s;
-    }
+    button.action-btn { padding: 8px 13px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-weight: 600; font-size: 0.83rem; cursor: pointer; transition: 0.15s; }
     button.action-btn:hover { border-color: #64748b; background: var(--card-hover); }
     button.primary { background: var(--accent); border-color: var(--accent); color: white; }
     button.primary:hover { background: #2563eb; }
-
-    /* Split Workspace */
     .workspace { display: grid; grid-template-columns: 1fr; gap: 20px; flex: 1; align-items: start; }
     .workspace.split { grid-template-columns: 1.15fr 0.85fr; }
-    @media (max-width: 1050px) {
-      body { flex-direction: column; }
-      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
-      .workspace.split { grid-template-columns: 1fr; }
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-    }
-
+    @media (max-width: 1050px) { body { flex-direction: column; } .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); } .workspace.split { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; }
     .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 10px; flex-wrap: wrap; }
     .tag-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .badge {
-      font-size: 0.73rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(59, 130, 246, 0.15);
-      color: #60a5fa;
-    }
+    .badge { font-size: 0.73rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 4px 10px; border-radius: 6px; background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
     .badge.mode { background: rgba(16, 185, 129, 0.14); color: #34d399; }
-
-    .question-box {
-      font-size: 1.1rem;
-      line-height: 1.72;
-      background: #0b101b;
-      padding: 22px;
-      border-radius: 10px;
-      border: 1px solid #1e293b;
-      border-left: 4px solid var(--accent);
-      margin-bottom: 18px;
-    }
-
-    /* Multiple Choice + Bluebook Strikethrough Eliminator */
+    .question-box { font-size: 1.1rem; line-height: 1.72; background: #0b101b; padding: 22px; border-radius: 10px; border: 1px solid #1e293b; border-left: 4px solid var(--accent); margin-bottom: 18px; }
     .mc-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
     .mc-row { display: flex; align-items: center; gap: 8px; }
-    .mc-option {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #0b101b;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 16px;
-      cursor: pointer;
-      transition: 0.15s;
-      font-size: 1.02rem;
-    }
+    .mc-option { flex: 1; display: flex; align-items: center; gap: 12px; background: #0b101b; border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; cursor: pointer; transition: 0.15s; font-size: 1.02rem; }
     .mc-option:hover { border-color: #64748b; background: #111827; }
     .mc-option.selected { border-color: var(--accent); background: rgba(59, 130, 246, 0.14); }
     .mc-option.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.16); }
     .mc-option.wrong { border-color: var(--danger); background: rgba(239, 68, 68, 0.16); }
     .mc-option.eliminated { opacity: 0.42; text-decoration: line-through; }
-    .mc-letter {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid #475569;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.82rem;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .elim-btn {
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #0b101b;
-      color: var(--muted);
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: line-through;
-    }
+    .mc-letter { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #475569; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; flex-shrink: 0; }
+    .elim-btn { padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); background: #0b101b; color: var(--muted); font-size: 0.75rem; font-weight: 700; cursor: pointer; text-decoration: line-through; }
     .elim-btn:hover { color: #f87171; border-color: #f87171; }
-
     .input-row { display: flex; gap: 10px; margin-bottom: 14px; }
-    input[type="text"] {
-      flex: 1;
-      padding: 12px 14px;
-      border-radius: 8px;
-      border: 1px solid #475569;
-      background: #0b101b;
-      color: white;
-      font-size: 1.08rem;
-      outline: none;
-    }
+    input[type="text"] { flex: 1; padding: 12px 14px; border-radius: 8px; border: 1px solid #475569; background: #0b101b; color: white; font-size: 1.08rem; outline: none; }
     input[type="text"]:focus { border-color: var(--accent); }
-
     .controls-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
     #feedback { font-weight: 700; font-size: 0.96rem; min-height: 22px; }
-
-    .solution-box {
-      display: none;
-      margin-top: 16px;
-      padding: 18px;
-      border-radius: 10px;
-      background: #0b101b;
-      border: 1px solid var(--border);
-      line-height: 1.65;
-      font-size: 0.94rem;
-    }
-
-    .ref-box {
-      display: none;
-      background: #0b101b;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-bottom: 16px;
-      font-size: 0.88rem;
-      line-height: 1.6;
-      color: #cbd5e1;
-    }
-
+    .solution-box { display: none; margin-top: 16px; padding: 18px; border-radius: 10px; background: #0b101b; border: 1px solid var(--border); line-height: 1.65; font-size: 0.94rem; }
+    .ref-box { display: none; background: #0b101b; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 16px; font-size: 0.88rem; line-height: 1.6; color: #cbd5e1; }
     .kbd-hint { font-size: 0.76rem; color: var(--muted); margin-top: 12px; }
     #calculator { width: 100%; height: 520px; border-radius: 8px; overflow: hidden; }
   </style>
 </head>
 <body>
-
-  <!-- Left Skill Navigation (Bedrock Style) -->
   <aside class="sidebar" id="sidebar">
     <div>
       <div class="brand">
         <h1>SAT Math 750+ Lab</h1>
         <p>Adaptive Module 2 Pattern Mastery</p>
       </div>
-
       <div class="nav-section-title">Practice Modes</div>
       <div class="skill-list">
         <button class="skill-btn active" data-topic="all" onclick="selectTopic('all', this)">
-          <div class="skill-top">
-            <span>Mixed Module 2 Drill</span>
-            <span class="skill-pct" id="pct-all">0%</span>
-          </div>
+          <div class="skill-top"><span>Mixed Module 2 Drill</span><span class="skill-pct" id="pct-all">0%</span></div>
           <div class="mini-track"><div class="mini-fill" id="bar-all"></div></div>
         </button>
-
         <button class="skill-btn" data-topic="missed" onclick="selectTopic('missed', this)">
-          <div class="skill-top">
-            <span>Review Missed Queue</span>
-            <span class="missed-badge" id="missed-count">0</span>
-          </div>
+          <div class="skill-top"><span>Review Missed Queue</span><span class="missed-badge" id="missed-count">0</span></div>
         </button>
       </div>
+      <div class="nav-section-title">Module 2 Archetypes (22 Patterns)</div>
+      <div class="skill-list">
+        <button class="skill-btn" data-topic="inf_solutions" onclick="selectTopic('inf_solutions', this)">
+          <div class="skill-top"><span>1. Linear Systems &amp; Ratios</span><span class="skill-pct" id="pct-inf_solutions">0%</span></div>
+          <div class="mini-track"><div class="mini-fill" id="bar-inf_solutions"></div></div>
+        </button>
+        <button class="skill-btn" data-topic="discriminant" onclick="selectTopic('discriminant', this)">
+          <div class="skill-top"><span>2. Quadratic Discriminant</span><span class="skill-pct" id="pct-discriminant">0%</span></div>
+          <div class="mini-track"><div class="mini-fill" id="bar-discriminant"></div></div>
+        </button>
+        <button class="skill-btn" data-topic="vertex" onclick="selectTopic('vertex', this)">
+          <div class="skill-top"><span>3. Parabolas &amp; Vertex Form</span><span class="skill-pct" id="pct-vertex">0%</span></div>
+          <div class="mini-track"><div class="mini-fill" id="bar-vertex"></div></div>
+        </button>
+        <button class="skill-btn" data-topic="circles" onclick="selectTopic('circles', this)">
+          <div class="skill-top"><span>4. Circle Equations</span><span class="skill-pct" id="pct-circles">0%</span></div>
+          <div class="mini-track"><div class="mini-fill" id="bar-circles"></div></div>
+        </button>
+        <button class="skill-btn" data-topic="exponential" onclick="selectTopic('exponential', this)">
+          <div class="skill-top"><span>5. Exponential Scaling</span><span class="skill-pct" id="pct-exponential">0%</span></div>
+          <div class="mini-track"><div class="mini-fill" id="bar-exponential"></div></div>
+        </button>
+        <button class="skill-btn" data-topic="trig" onclick="selectTopic('trig', this)">
+          <div class="skill-top"><span>6. Right-Triangle Trig</span><span class="skill-pct" id="pct-trig">0%</span></div>
+          <div class="mini-track"><div class="mini-fill" id="bar-trig"></div></div>
+        </button>
+        <button class="skill-btn" data-topic="regression" onclick="selectTopic('regression', this)">
+          <div class="skill-top"><span>7. Desmos Table Regression</span><span class="skill-pct" id="pct-regression">0%</span></div>
+          <div class="mini-track"><div class="mini-fill" id="bar-regression"></div></div>
+        </button>
+        <button class="skill-btn" data-topic="geometry" onclick="selectTopic('geometry', this)">
+          <div class="skill-top"><span>8. Similar Triangles &amp; Arcs</span><span class="skill-pct" id="pct-geometry">0%</span></div>
+          <div class="mini-track"><div class="mini-fill" id="bar-geometry"></div></div>
+        </button>
+      </div>
+    </div>
+    <button type="button" class="reset-btn" id="reset-btn">Reset Mastery Progress</button>
+  </aside>
 
-Module 2 Archetypes (24 Patterns)
+  <main class="main">
+    <div class="topbar">
+      <div class="stat-group">
+        <button type="button" class="action-btn" id="menu-btn">Skills Menu</button>
+        <span class="pill" id="timer-pill">Pace: 00:00</span>
+        <span class="pill" id="streak-text">Streak: 0</span>
+        <span class="pill" id="score-text">Solved: 0</span>
+      </div>
+      <div class="stat-group">
+        <button type="button" class="action-btn" id="format-btn">Format: Mixed</button>
+        <button type="button" class="action-btn" id="ref-btn">Formulas</button>
+        <button type="button" class="action-btn" id="desmos-btn">Desmos Calculator</button>
+        <button type="button" class="action-btn" id="share-btn">Share Link</button>
+      </div>
+    </div>
 
+    <div class="ref-box" id="ref-box">
+      <strong>Bluebook Quick Formulas:</strong> &nbsp;
+      Discriminant: $\Delta = b^2 - 4ac$ &nbsp;|&nbsp;
+      Vertex Form: $y = a(x-h)^2 + k$ &nbsp;|&nbsp;
+      Circle: $(x-h)^2 + (y-k)^2 = r^2$ &nbsp;|&nbsp;
+      Desmos Regression: $y_1 \sim ax_1^2 + bx_1 + c$ &nbsp;|&nbsp;
+      Cofunction: $\sin(x^\circ) = \cos(90^\circ - x^\circ)$
+    </div>
 
-1. Linear Systems & Ratios0%
+    <div class="workspace" id="workspace">
+      <section class="card">
+        <div class="q-header">
+          <div class="tag-group">
+            <span class="badge" id="pattern-badge">Module 2</span>
+            <span class="badge mode" id="mode-badge">Student-Produced Response</span>
+          </div>
+          <div class="tag-group">
+            <button type="button" class="action-btn" id="hint-btn" style="padding: 5px 10px; font-size: 0.8rem;">Desmos Hint</button>
+            <button type="button" class="action-btn primary" id="new-btn" style="padding: 6px 12px; font-size: 0.82rem;">Next Problem -&gt;</button>
+          </div>
+        </div>
+        <div class="question-box" id="question-text">Loading problem...</div>
+        <div id="answer-area"></div>
+        <div class="controls-footer">
+          <div id="feedback"></div>
+          <button type="button" class="action-btn primary" id="check-btn">Submit Answer</button>
+        </div>
+        <div class="solution-box" id="solution-box"></div>
+        <div class="kbd-hint">Shortcuts: Press <strong>Enter</strong> to submit, press <strong>Enter</strong> again for next problem, or keys <strong>1–4</strong> for multiple choice.</div>
+      </section>
+      <aside class="card" id="desmos-panel" style="display:none;">
+        <div id="calculator"></div>
+      </aside>
+    </div>
+  </main>
+  <script>
+    var allTopics = ["inf_solutions", "discriminant", "vertex", "circles", "exponential", "trig", "regression", "geometry"];
+    var currentTopic = "all";
+    var formatMode = "mixed";
+    var currentProblem = null;
+    var selectedMC = null;
+    var answeredCurrent = false;
+    var streak = 0;
+    var solved = 0;
+    var desmosLoaded = false;
+    var missedQueue = [];
+    var secondsElapsed = 0;
+    var timerInterval = null;
 
-2. Quadratic Discriminant0%
+    var defaultMastery = { inf_solutions: 0, discriminant: 0, vertex: 0, circles: 0, exponential: 0, trig: 0, regression: 0, geometry: 0 };
+    var mastery = Object.assign({}, defaultMastery, JSON.parse(localStorage.getItem("sat750_mastery") || "{}"));
 
-3. Parabolas & Vertex Form0%
+    function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
-4. Circle Equations0%
+    function renderMath() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }]
+        });
+      }
+    }
 
-5. Exponential Scaling0%
+    function startTimer() {
+      clearInterval(timerInterval);
+      secondsElapsed = 0;
+      var pill = document.getElementById("timer-pill");
+      pill.classList.remove("timer-warn");
+      pill.innerText = "Pace: 00:00";
+      timerInterval = setInterval(function() {
+        secondsElapsed++;
+        var mins = String(Math.floor(secondsElapsed / 60)).padStart(2, "0");
+        var secs = String(secondsElapsed % 60).padStart(2, "0");
+        pill.innerText = "Pace: " + mins + ":" + secs;
+        if (secondsElapsed > 95) pill.classList.add("timer-warn");
+      }, 1000);
+    }
 
-6. Right-Triangle Trig0%
+    function updateSidebarUI() {
+      var totalPct = 0;
+      allTopics.forEach(function(k) {
+        var pct = Math.min(100, Math.round(((mastery[k] || 0) / 5) * 100));
+        totalPct += pct;
+        document.getElementById("pct-" + k).innerText = pct + "%";
+        var bar = document.getElementById("bar-" + k);
+        bar.style.width = pct + "%";
+        if (pct === 100) bar.classList.add("mastered");
+        else bar.classList.remove("mastered");
+      });
+      var avg = Math.round(totalPct / allTopics.length);
+      document.getElementById("pct-all").innerText = avg + "%";
+      document.getElementById("bar-all").style.width = avg + "%";
+      document.getElementById("missed-count").innerText = missedQueue.length;
+      localStorage.setItem("sat750_mastery", JSON.stringify(mastery));
+    }
 
-7. Desmos Table Regression0%
+    function selectTopic(topic, btnEl) {
+      currentTopic = topic;
+      document.querySelectorAll(".skill-btn").forEach(function(b) { b.classList.remove("active"); });
+      btnEl.classList.add("active");
+      generateProblem();
+    }
 
-8. Similar Triangles & Arcs0%
+    function buildQuestion(type) {
+      var variant = randInt(1, 3);
+      if (type === "inf_solutions") {
+        var mult = randInt(2, 5), d = randInt(2, 9), a = d * mult, e = randInt(3, 11), f = randInt(4, 15), c = f * mult;
+        if (variant === 1) {
+          return {
+            topic: type, badge: "Linear Systems • Infinite Solutions",
+            text: "In the system of equations below, $b$ is a constant. If the system has <strong>infinitely many solutions</strong>, what is the value of $\\frac{a}{d}$ given: $$" + a + "x + by = " + c + "$$ $$" + d + "x + " + e + "y = " + f + "$$",
+            answerVal: mult, answerDisplay: String(mult), distractors: [String(mult + 1), String(a), String(e * mult)],
+            trapNote: "Common trap: solving for $b = " + (e * mult) + "$ instead of the ratio $\\frac{a}{d} = " + mult + "$.",
+            hint: "Type both equations into Desmos, add a slider for b, and adjust it until the two lines overlap completely.",
+            solution: "<strong>Fast Algebra Method:</strong> Compare the constants or $x$-coefficients: $\\frac{" + a + "}{" + d + "} = " + mult + "$.<br><br><strong>Desmos Trick:</strong> Graph both equations with a slider for $b$; at $b = " + (e * mult) + "$, the lines overlap."
+          };
+        } else if (variant === 2) {
+          return {
+            topic: type, badge: "Linear Systems • No Solution",
+            text: "In the system of linear equations below, $k$ is a constant. If the system has <strong>no solution</strong>, what is the value of $k$? $$" + a + "x - ky = " + c + "$$ $$" + d + "x - " + e + "y = " + (f + 7) + "$$",
+            answerVal: e * mult, answerDisplay: String(e * mult), distractors: [String(mult), String(-e * mult), String(e + mult)],
+            trapNote: "Common trap: forgetting the negative sign on both $y$-terms or picking the scale factor $" + mult + "$ instead of $k$.",
+            hint: "For no solution, the lines must be parallel. Use a slider for k in Desmos until they never intersect.",
+            solution: "<strong>Fast Algebra Method:</strong> Set ratios equal: $\\frac{" + a + "}{" + d + "} = \\frac{k}{" + e + "} = " + mult + " \\implies k = " + (e * mult) + "$.<br><br><strong>Desmos Trick:</strong> Graph both lines with a slider for $k$; at $k = " + (e * mult) + "$, they are parallel."
+          };
+        } else {
+          var bVal = e * mult;
+          return {
+            topic: type, badge: "Linear Systems • Constant Sum",
+            text: "In the system below, $r$ and $s$ are constants. If the system has <strong>infinitely many solutions</strong>, what is the value of $r + s$? $$rx + " + bVal + "y = s$$ $$" + d + "x + " + e + "y = " + f + "$$",
+            answerVal: a + c, answerDisplay: String(a + c), distractors: [String(d + f), String(a * c), String(mult)],
+            trapNote: "Common trap: adding $" + d + " + " + f + "$ without multiplying by the scale factor $" + mult + "$.",
+            hint: "Find the scale factor between the y-coefficients (" + bVal + " / " + e + "), then multiply both " + d + " and " + f + " by that factor.",
+            solution: "<strong>Fast Algebra Method:</strong> Scale factor is $\\frac{" + bVal + "}{" + e + "} = " + mult + "$. Thus $r = " + a + "$ and $s = " + c + "$, so $r + s = <strong>" + (a + c) + "</strong>$."
+          };
+        }
+      } else if (type === "discriminant") {
+        var cVal = randInt(8, 35), maxB = Math.floor(Math.sqrt(4 * cVal - 0.01));
+        if (variant === 1) {
+          return {
+            topic: type, badge: "Quadratics • Zero Real Solutions",
+            text: "In the equation $x^2 + bx + " + cVal + " = 0$, $b$ is a positive integer constant. If the equation has <strong>no real solutions</strong>, what is the <strong>greatest possible value</strong> of $b$?",
+            answerVal: maxB, answerDisplay: String(maxB), distractors: [String(maxB + 1), String(maxB - 1), String(cVal)],
+            trapNote: "Common trap: picking $" + (maxB + 1) + "$, which makes $b^2 > 4ac$.",
+            hint: "Graph y = x^2 + bx + " + cVal + " with a slider for b and find the largest integer where the parabola stays above the x-axis.",
+            solution: "<strong>Algebra Method:</strong> Set $b^2 - 4ac < 0 \\implies b^2 < " + (4 * cVal) + " \\implies b < " + Math.sqrt(4 * cVal).toFixed(2) + "$. Greatest integer is <strong>" + maxB + "</strong>."
+          };
+        } else if (variant === 2) {
+          var minB = maxB + 1;
+          return {
+            topic: type, badge: "Quadratics • Two Real Solutions",
+            text: "In the equation $x^2 + bx + " + cVal + " = 0$, $b$ is a positive integer constant. If the equation has <strong>two distinct real solutions</strong>, what is the <strong>least possible value</strong> of $b$?",
+            answerVal: minB, answerDisplay: String(minB), distractors: [String(maxB), String(minB + 1), String(4 * cVal)],
+            trapNote: "Common trap: rounding down to $" + maxB + "$ instead of rounding up past $\\sqrt{" + (4 * cVal) + "}$.",
+            hint: "Set b^2 - 4ac > 0, or slide b in Desmos until the parabola crosses the x-axis twice.",
+            solution: "<strong>Algebra Method:</strong> Set $b^2 - 4ac > 0 \\implies b^2 > " + (4 * cVal) + " \\implies b > " + Math.sqrt(4 * cVal).toFixed(2) + "$. Least integer is <strong>" + minB + "</strong>."
+          };
+        } else {
+          var halfB = randInt(3, 9), exactC = halfB * halfB;
+          return {
+            topic: type, badge: "Quadratics • One Real Solution",
+            text: "In the equation $x^2 - " + (2 * halfB) + "x + c = 0$, $c$ is a constant. If the equation has <strong>exactly one real solution</strong>, what is the value of $c$?",
+            answerVal: exactC, answerDisplay: String(exactC), distractors: [String(2 * halfB), String(halfB), String(4 * exactC)],
+            trapNote: "Common trap: forgetting to square $\\frac{b}{2} = " + halfB + "$.",
+            hint: "For one real solution, the vertex sits directly on the x-axis (b^2 - 4ac = 0).",
+            solution: "<strong>Algebra Method:</strong> Set $b^2 - 4ac = 0$: $(-" + (2 * halfB) + ")^2 - 4c = 0 \\implies c = <strong>" + exactC + "</strong>$."
+          };
+        }
+      }
+      else if (type === "vertex") {
+        var aVal = randInt(2, 4), h = randInt(2, 6), k = randInt(-10, -2), x1 = h + 2, y1 = aVal * Math.pow(x1 - h, 2) + k;
+        if (variant === 1) {
+          var ans = aVal + k;
+          return {
+            topic: type, badge: "Parabolas • Vertex Form Evaluation",
+            text: "A quadratic function $f$ has a vertex at $(" + h + ", " + k + ")$ and passes through $(" + x1 + ", " + y1 + ")$. What is the value of $f(" + (h - 1) + ")$?",
+            answerVal: ans, answerDisplay: String(ans), distractors: [String(k), String(aVal), String(aVal - k)],
+            trapNote: "Common trap: stopping after finding $a = " + aVal + "$ instead of evaluating $f(" + (h - 1) + ")$.",
+            hint: "Type f(x) = a(x - " + h + ")^2 + (" + k + ") in Desmos, slide a to hit (" + x1 + ", " + y1 + "), then type f(" + (h - 1) + ").",
+            solution: "<strong>Algebra Method:</strong> $f(x) = a(x - " + h + ")^2 + (" + k + ")$ gives $a = " + aVal + "$. Then $f(" + (h - 1) + ") = " + aVal + "(1) + (" + k + ") = <strong>" + ans + "</strong>$."
+          };
+        } else if (variant === 2) {
+          var yInt = aVal * h * h + k;
+          return {
+            topic: type, badge: "Parabolas • y-Intercept from Minimum",
+            text: "A quadratic function $g$ has a minimum value of $" + k + "$ at $x = " + h + "$, and $g(" + x1 + ") = " + y1 + "$. What is the value of $g(0)$?",
+            answerVal: yInt, answerDisplay: String(yInt), distractors: [String(k), String(aVal * h + k), String(y1)],
+            trapNote: "Common trap: assuming $g(0) = k$ instead of plugging $x = 0$ into vertex form.",
+            hint: "A minimum of " + k + " at x = " + h + " means the vertex is (" + h + ", " + k + ").",
+            solution: "<strong>Algebra Method:</strong> $g(x) = " + aVal + "(x - " + h + ")^2 + (" + k + ") \\implies g(0) = " + aVal + "(" + (h * h) + ") + (" + k + ") = <strong>" + yInt + "</strong>$."
+          };
+        } else {
+          var r1 = randInt(1, 4), r2 = r1 + randInt(2, 6), vertexX = (r1 + r2) / 2;
+          return {
+            topic: type, badge: "Parabolas • Axis of Symmetry",
+            text: "A parabola passes through $(" + r1 + ", 0)$, $(" + r2 + ", 0)$, and $(" + (r2 + 2) + ", " + (aVal * 2 * (r2 + 2 - r1)) + ")$. What is the $x$-coordinate of the parabola's vertex?",
+            answerVal: vertexX, answerDisplay: String(vertexX), distractors: [String(r1 + r2), String((r2 - r1) / 2), String(aVal)],
+            trapNote: "Common trap: subtracting the roots instead of averaging them.",
+            hint: "The x-coordinate of the vertex is always the exact midpoint of the two x-intercepts.",
+            solution: "<strong>Symmetry Rule:</strong> Average the two $x$-intercepts: $h = \\frac{" + r1 + " + " + r2 + "}{2} = <strong>" + vertexX + "</strong>$."
+          };
+        }
+      } else if (type === "circles") {
+        var hc = randInt(2, 6), kc = randInt(2, 6), r = randInt(3, 7), D = -2 * hc, E = -2 * kc, F = hc * hc + kc * kc - r * r;
+        if (variant === 1) {
+          return {
+            topic: type, badge: "Circles • Radius from General Form",
+            text: "In the $xy$-plane, the graph of $x^2 " + D + "x + y^2 " + E + "y + (" + F + ") = 0$ is a circle. What is the <strong>radius</strong> of the circle?",
+            answerVal: r, answerDisplay: String(r), distractors: [String(r * r), String(2 * r), String(Math.abs(F))],
+            trapNote: "Common trap: forgetting to take the square root of $r^2 = " + (r * r) + "$.",
+            hint: "Graph the equation in Desmos, click the top and bottom points of the circle, and divide the diameter by 2.",
+            solution: "<strong>Completing the Square:</strong> $(x - " + hc + ")^2 + (y - " + kc + ")^2 = " + (r * r) + " \\implies r = <strong>" + r + "</strong>$."
+          };
+        } else if (variant === 2) {
+          return {
+            topic: type, badge: "Circles • Center Coordinate Sum",
+            text: "In the $xy$-plane, the equation $x^2 " + D + "x + y^2 " + E + "y + (" + F + ") = 0$ defines a circle with center $(h, k)$. What is the value of $h + k$?",
+            answerVal: hc + kc, answerDisplay: String(hc + kc), distractors: [String(-(hc + kc)), String(D + E), String(r)],
+            trapNote: "Common trap: forgetting to flip the signs from $(x - h)^2 + (y - k)^2$.",
+            hint: "Take half of the x- and y-coefficients and flip their signs to get (h, k).",
+            solution: "<strong>Completing the Square:</strong> Center is $(" + hc + ", " + kc + ")$, so $h + k = <strong>" + (hc + kc) + "</strong>$."
+          };
+        } else {
+          var newR = r + 2, targetConst = newR * newR - hc * hc - kc * kc;
+          return {
+            topic: type, badge: "Circles • Target Radius Constant",
+            text: "In the $xy$-plane, the graph of $x^2 " + D + "x + y^2 " + E + "y = c$ is a circle with radius $" + newR + "$. What is the value of $c$?",
+            answerVal: targetConst, answerDisplay: String(targetConst), distractors: [String(newR * newR), String(newR), String(hc * hc + kc * kc)],
+            trapNote: "Common trap: setting $c = r^2 = " + (newR * newR) + "$ without adding $" + (hc * hc + kc * kc) + "$ to the right side.",
+            hint: "Complete the square on the left side by adding " + (hc * hc + kc * kc) + " to both sides.",
+            solution: "<strong>Completing the Square:</strong> $c + " + (hc * hc + kc * kc) + " = " + (newR * newR) + " \\implies c = <strong>" + targetConst + "</strong>$."
+          };
+        }
+      } else if (type === "exponential") {
+        var initial = randInt(2, 9) * 100, pct = randInt(4, 18), base = (1 + pct / 100).toFixed(2), years = randInt(3, 6);
+        if (variant === 1) {
+          return {
+            topic: type, badge: "Exponentials • Percent Growth Rate",
+            text: "The function $P(t) = " + initial + "(" + base + ")^{\\frac{t}{" + years + "}}$ models a population $t$ years after 2020. By what <strong>percent</strong> does the population increase every <strong>" + years + " years</strong>?",
+            answerVal: pct, answerDisplay: String(pct), distractors: [(pct / years).toFixed(1), String(pct * years), base],
+            trapNote: "Common trap: dividing $" + pct + "\\%$ by $" + years + "$.",
+            hint: "Every time t increases by " + years + ", the exponent becomes 1.",
+            solution: "<strong>Exponent Structure Rule:</strong> Every $" + years + "$ years, $P(t)$ multiplies by $" + base + "$, which is a <strong>" + pct + "%</strong> increase."
+          };
+        } else if (variant === 2) {
+          return {
+            topic: type, badge: "Exponentials • Time Interval Scaling",
+            text: "The function $P(t) = " + initial + "(" + base + ")^{\\frac{t}{" + years + "}}$ models a population $t$ years after 2020. Every $n$ years, the population increases by $" + pct + "\\%$. What is the value of $n$?",
+            answerVal: years, answerDisplay: String(years), distractors: [String(pct), "1", String(years * 2)],
+            trapNote: "Common trap: entering the percent $" + pct + "$ instead of the time period $n = " + years + "$.",
+            hint: "Set the exponent t / " + years + " equal to 1.",
+            solution: "<strong>Exponent Structure Rule:</strong> Setting $\\frac{t}{" + years + "} = 1$ gives $n = <strong>" + years + "</strong>$."
+          };
+        } else {
+          var decayPct = randInt(8, 25), decayBase = (1 - decayPct / 100).toFixed(2), months = randInt(2, 5);
+          return {
+            topic: type, badge: "Exponentials • Percent Decay Rate",
+            text: "The mass $M(t) = " + initial + "(" + decayBase + ")^{\\frac{t}{" + months + "}}$ models a substance $t$ months into an experiment. By what <strong>percent</strong> does the mass decrease every <strong>" + months + " months</strong>?",
+            answerVal: decayPct, answerDisplay: String(decayPct), distractors: [String(Math.round(Number(decayBase) * 100)), (decayPct / months).toFixed(1), String(months)],
+            trapNote: "Common trap: entering $" + Math.round(Number(decayBase) * 100) + "\\%$ instead of $" + decayPct + "\\%$.",
+            hint: "Subtract the base (" + decayBase + ") from 1 to find the decimal decay rate.",
+            solution: "<strong>Decay Rate Rule:</strong> $1 - " + decayBase + " = " + (decayPct / 100).toFixed(2) + " \\implies <strong>" + decayPct + "%</strong> decrease."
+          };
+        }
+      }
+      else if (type === "trig") {
+        var triples = new Array({ opp: 3, adj: 4, hyp: 5 }, { opp: 5, adj: 12, hyp: 13 }, { opp: 8, adj: 15, hyp: 17 }, { opp: 7, adj: 24, hyp: 25 });
+        var t = triples.at(randInt(0, triples.length - 1));
+        if (variant === 1) {
+          var num = randInt(3, 8), den = randInt(num + 1, 13);
+          return {
+            topic: type, badge: "Trig • Complementary Angles",
+            text: "In right triangle $ABC$, angle $C$ is $90^\\circ$ and $\\sin(A) = \\frac{" + num + "}{" + den + "}$. What is the value of $\\cos(B)$?",
+            answerVal: num / den, answerDisplay: num + "/" + den, distractors: [den + "/" + num, "1", (den - num) + "/" + den],
+            trapNote: "Common trap: flipping the fraction to $\\frac{" + den + "}{" + num + "}$.",
+            hint: "In a right triangle with C = 90°, angles A and B add up to 90°, so sin(A) = cos(B).",
+            solution: "<strong>Complementary Angle Identity:</strong> Since $A + B = 90^\\circ$, $\\sin(A) = \\cos(B) = <strong>\\frac{" + num + "}{" + den + "}</strong>$."
+          };
+        } else if (variant === 2) {
+          return {
+            topic: type, badge: "Trig • Pythagorean Triple Ratio",
+            text: "In right triangle $ABC$, angle $C$ is $90^\\circ$ and $\\sin(A) = \\frac{" + t.opp + "}{" + t.hyp + "}$. What is the value of $\\tan(B)$?",
+            answerVal: t.adj / t.opp, answerDisplay: t.adj + "/" + t.opp, distractors: [t.opp + "/" + t.adj, t.adj + "/" + t.hyp, t.opp + "/" + t.hyp],
+            trapNote: "Common trap: computing $\\tan(A)$ instead of $\\tan(B)$.",
+            hint: "Use the " + t.opp + "-" + t.adj + "-" + t.hyp + " right triangle: opposite to B is " + t.adj + " and adjacent to B is " + t.opp + ".",
+            solution: "<strong>Pythagorean Triple (" + t.opp + "-" + t.adj + "-" + t.hyp + "):</strong> $\\tan(B) = <strong>\\frac{" + t.adj + "}{" + t.opp + "}</strong>$."
+          };
+        } else {
+          return {
+            topic: type, badge: "Trig • Cofunction Sum",
+            text: "In right triangle $ABC$, angle $C$ is $90^\\circ$ and $\\cos(A) = \\frac{" + t.adj + "}{" + t.hyp + "}$. What is the value of $\\sin(B) + \\cos(A)$?",
+            answerVal: (2 * t.adj) / t.hyp, answerDisplay: (2 * t.adj) + "/" + t.hyp, distractors: [t.adj + "/" + t.hyp, "1", (t.opp + t.adj) + "/" + t.hyp],
+            trapNote: "Common trap: assuming $\\sin(B) + \\cos(A) = 1$.",
+            hint: "Because A + B = 90°, sin(B) equals cos(A).",
+            solution: "<strong>Cofunction Identity:</strong> $\\sin(B) = \\cos(A) = \\frac{" + t.adj + "}{" + t.hyp + "}$, so their sum is <strong>$\\frac{" + (2 * t.adj) + "}{" + t.hyp + "}$</strong>."
+          };
+        }
+      } else if (type === "regression") {
+        var aReg = randInt(2, 4), bReg = randInt(-5, 5), cReg = randInt(1, 8), y0 = cReg, y1 = aReg + bReg + cReg, y2 = 4 * aReg + 2 * bReg + cReg;
+        if (variant === 1) {
+          return {
+            topic: type, badge: "Desmos Regression • Quadratic Coefficients",
+            text: "A quadratic function $f(x) = ax^2 + bx + c$ passes through $(0, " + y0 + ")$, $(1, " + y1 + ")$, and $(2, " + y2 + ")$. What is the value of $a + b + c$?",
+            answerVal: y1, answerDisplay: String(y1), distractors: [String(y0), String(y2), String(aReg + bReg)],
+            trapNote: "Shortcut: $f(1) = a + b + c = " + y1 + "$.",
+            hint: "Plugging x = 1 into ax^2 + bx + c gives a + b + c—or run a table regression y1 ~ ax1^2 + bx1 + c in Desmos.",
+            solution: "<strong>1-Second Pattern:</strong> $f(1) = a + b + c = <strong>" + y1 + "</strong>$."
+          };
+        } else {
+          var y3 = 9 * aReg + 3 * bReg + cReg;
+          return {
+            topic: type, badge: "Desmos Regression • Predict f(3)",
+            text: "A quadratic table contains the points $(0, " + y0 + ")$, $(1, " + y1 + ")$, and $(2, " + y2 + ")$. If $f(x) = ax^2 + bx + c$, what is the value of $f(3)$?",
+            answerVal: y3, answerDisplay: String(y3), distractors: [String(y2 + (y2 - y1)), String(y3 - aReg), String(aReg)],
+            trapNote: "Common trap: treating the table as linear.",
+            hint: "Insert a table (+) in Desmos with the 3 points, type y1 ~ ax1^2 + bx1 + c, then evaluate a(3)^2 + b(3) + c.",
+            solution: "<strong>Desmos Regression:</strong> Regressing the 3 points gives $f(x) = " + aReg + "x^2 + (" + bReg + ")x + " + cReg + "$, so $f(3) = <strong>" + y3 + "</strong>$."
+          };
+        }
+      } else {
+        if (variant === 1) {
+          var scale = randInt(2, 4), base1 = randInt(4, 9), base2 = base1 * scale, area1 = randInt(10, 25), area2 = area1 * scale * scale;
+          return {
+            topic: type, badge: "Geometry • Similar Triangle Area Scaling",
+            text: "Triangle $DEF$ is similar to triangle $ABC$, where side $DE$ corresponds to side $AB$. If $AB = " + base1 + "$, $DE = " + base2 + "$, and the area of $\\triangle ABC$ is $" + area1 + "$, what is the area of $\\triangle DEF$?",
+            answerVal: area2, answerDisplay: String(area2), distractors: [String(area1 * scale), String(area1 + scale), String(area2 * 2)],
+            trapNote: "Common trap: multiplying area by $k = " + scale + "$ instead of $k^2 = " + (scale * scale) + "$.",
+            hint: "When side lengths scale by k, area scales by k^2.",
+            solution: "<strong>Area Scaling Rule:</strong> Scale factor $k = " + scale + " \\implies k^2 = " + (scale * scale) + "$, so $\\text{Area} = " + area1 + "(" + (scale * scale) + ") = <strong>" + area2 + "</strong>$."
+          };
+        } else {
+          var angles = new Array(30, 60, 90, 120, 180);
+          var deg = angles.at(randInt(0, angles.length - 1));
+          var rad = randInt(3, 12);
+          var arcOverPi = (deg / 360) * 2 * rad;
+          return {
+            topic: type, badge: "Geometry • Circle Arc Length",
+            text: "A circle has radius $" + rad + "$. An arc on the circle subtends a central angle of $" + deg + "^\\circ$. If the length of the arc is written as $k\\pi$, what is the value of $k$?",
+            answerVal: arcOverPi, answerDisplay: String(arcOverPi), distractors: [String((deg / 360) * rad * rad), String(2 * rad), String(deg / 60)],
+            trapNote: "Common trap: using sector area $\\pi r^2$ instead of circumference $2\\pi r$.",
+            hint: "Arc length = (central angle / 360) * 2 * pi * r.",
+            solution: "<strong>Arc Length Formula:</strong> $L = \\frac{" + deg + "}{360} \\cdot 2\\pi(" + rad + ") = " + arcOverPi + "\\pi \\implies k = <strong>" + arcOverPi + "</strong>$."
+          };
+        }
+      }
+    }
+    function generateProblem() {
+      document.getElementById("feedback").innerText = "";
+      document.getElementById("solution-box").style.display = "none";
+      selectedMC = null;
+      answeredCurrent = false;
 
+      if (currentTopic === "missed") {
+        if (missedQueue.length === 0) {
+          currentProblem = null;
+          document.getElementById("question-text").innerHTML = "<strong>Missed Queue is empty!</strong> You cleared every missed pattern. Pick any skill on the left to keep practicing.";
+          document.getElementById("answer-area").innerHTML = "";
+          return;
+        }
+        currentProblem = missedQueue.at(0);
+      } else {
+        var chosenType = (currentTopic === "all") ? allTopics.at(randInt(0, allTopics.length - 1)) : currentTopic;
+        currentProblem = buildQuestion(chosenType);
+      }
 
+      var useMC = (formatMode === "mc") || (formatMode === "mixed" && Math.random() < 0.45);
+      currentProblem.isMC = useMC;
 
-Reset Mastery Progress
-Skills Menu
-Pace: 00:00
-Streak: 0
-Solved: 0
+      document.getElementById("pattern-badge").innerText = currentProblem.badge;
+      document.getElementById("mode-badge").innerText = useMC ? "Multiple Choice" : "Student-Produced Response";
+      document.getElementById("question-text").innerHTML = currentProblem.text;
 
+      var area = document.getElementById("answer-area");
+      if (!useMC) {
+        area.innerHTML = '<div class="input-row"><input type="text" id="user-answer" placeholder="Enter exact number or fraction (e.g., 14 or 7/5)" autocomplete="off" /></div>';
+        document.getElementById("user-answer").focus();
+      } else {
+        var opts = [currentProblem.answerDisplay].concat(currentProblem.distractors.slice(0, 3));
+        opts.sort(function() { return Math.random() - 0.5; });
+        var letters = ["A", "B", "C", "D"];
+        var html = '<div class="mc-grid">';
+        opts.forEach(function(opt, idx) {
+          html += '<div class="mc-row">' +
+                  '<div class="mc-option" data-val="' + opt + '" onclick="selectMC(this)"><span class="mc-letter">' + letters.at(idx) + '</span><span>' + opt + '</span></div>' +
+                  '<button type="button" class="elim-btn" title="Cross out option" onclick="toggleElim(this)">ABC</button>' +
+                  '</div>';
+        });
+        html += '</div>';
+        area.innerHTML = html;
+      }
+      startTimer();
+      renderMath();
+    }
 
-Format: Mixed
-Formulas
-Desmos Calculator
-Share Link
+    function selectMC(el) {
+      if (answeredCurrent) return;
+      el.classList.remove("eliminated");
+      document.querySelectorAll(".mc-option").forEach(function(o) { o.classList.remove("selected"); });
+      el.classList.add("selected");
+      selectedMC = el.getAttribute("data-val");
+    }
 
-Bluebook Quick Formulas:  
-Discriminant: $\Delta = b^2 - 4ac$  | 
-Vertex Form: $y = a(x-h)^2 + k$  | 
-Circle: $(x-h)^2 + (y-k)^2 = r^2$  | 
-Desmos Regression: $y_1 \sim ax_1^2 + bx_1 + c$  | 
-Cofunction: $\sin(x^\circ) = \cos(90^\circ - x^\circ)$
-Module 2
-Student-Produced Response
+    function toggleElim(btn) {
+      var opt = btn.parentElement.querySelector(".mc-option");
+      opt.classList.toggle("eliminated");
+      if (opt.classList.contains("eliminated") && opt.classList.contains("selected")) {
+        opt.classList.remove("selected");
+        selectedMC = null;
+      }
+    }
 
+    function parseFraction(str) {
+      str = String(str).trim().replace("%", "");
+      var slashIdx = str.indexOf("/");
+      if (slashIdx > 0) {
+        var num = Number(str.slice(0, slashIdx));
+        var den = Number(str.slice(slashIdx + 1));
+        if (!isNaN(num) && !isNaN(den) && den !== 0) return num / den;
+      }
+      return Number(str);
+    }
 
-Desmos Hint
-Next Problem ->
+    function checkAnswer() {
+      if (!currentProblem) return;
+      if (answeredCurrent) { generateProblem(); return; }
+      var fb = document.getElementById("feedback");
+      var solBox = document.getElementById("solution-box");
+      var raw = currentProblem.isMC ? selectedMC : document.getElementById("user-answer").value;
 
-Loading problem...
-Submit Answer
-Shortcuts: Press Enter to submit, press Enter again for next problem, or keys 1–4 for multiple choice.
-var allTopics = ["inf_solutions", "discriminant", "vertex", "circles", "exponential", "trig", "regression", "geometry"];
-var currentTopic = "all";
-var formatMode = "mixed";
-var currentProblem = null;
-var selectedMC = null;
-var answeredCurrent = false;
-var streak = 0;
-var solved = 0;
-var desmosLoaded = false;
-var missedQueue = [];
-var secondsElapsed = 0;
-var timerInterval = null;
-var defaultMastery = {
-inf_solutions: 0,
-discriminant: 0,
-vertex: 0,
-circles: 0,
-exponential: 0,
-trig: 0,
-regression: 0,
-geometry: 0
-};
-var mastery = Object.assign({}, defaultMastery, JSON.parse(localStorage.getItem("sat750_mastery") || "{}"));
-function randInt(min, max) {
-return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function renderMath() {
-if (window.renderMathInElement) {
-renderMathInElement(document.body, {
-delimiters: [
-{ left: "$$", right: "$$", display: true },
-{ left: "$", right: "$", display: false }
-]
-});
-}
-}
-function startTimer() {
-clearInterval(timerInterval);
-secondsElapsed = 0;
-var pill = document.getElementById("timer-pill");
-pill.classList.remove("timer-warn");
-pill.innerText = "Pace: 00:00";
-timerInterval = setInterval(function() {
-secondsElapsed++;
-var mins = String(Math.floor(secondsElapsed / 60)).padStart(2, "0");
-var secs = String(secondsElapsed % 60).padStart(2, "0");
-pill.innerText = "Pace: " + mins + ":" + secs;
-if (secondsElapsed > 95) pill.classList.add("timer-warn");
-}, 1000);
-}
-function updateSidebarUI() {
-var totalPct = 0;
-allTopics.forEach(function(k) {
-var pct = Math.min(100, Math.round(((mastery[k] || 0) / 5) * 100));
-totalPct += pct;
-document.getElementById("pct-" + k).innerText = pct + "%";
-var bar = document.getElementById("bar-" + k);
-bar.style.width = pct + "%";
-if (pct === 100) bar.classList.add("mastered");
-else bar.classList.remove("mastered");
-});
-var avg = Math.round(totalPct / allTopics.length);
-document.getElementById("pct-all").innerText = avg + "%";
-document.getElementById("bar-all").style.width = avg + "%";
-document.getElementById("missed-count").innerText = missedQueue.length;
-localStorage.setItem("sat750_mastery", JSON.stringify(mastery));
-}
-function selectTopic(topic, btnEl) {
-currentTopic = topic;
-document.querySelectorAll(".skill-btn").forEach(function(b) { b.classList.remove("active"); });
-btnEl.classList.add("active");
-generateProblem();
-}
-function buildQuestion(type) {
-var variant = randInt(1, 3);
-if (type === "inf_solutions") {
-var mult = randInt(2, 5);
-var d = randInt(2, 9);
-var a = d * mult;
-var e = randInt(3, 11);
-var f = randInt(4, 15);
-var c = f * mult;if (variant === 1) {
-return {
-topic: type,
-badge: "Linear Systems • Infinite Solutions",
-text: "In the system of equations below, $b$ is a constant. If the system has infinitely many solutions, what is the value of $\frac{a}{d}$ given: $$" + a + "x + by = " + c + "$$ $$" + d + "x + " + e + "y = " + f + "$$",
-answerVal: mult,
-answerDisplay: String(mult),
-distractors: [String(mult + 1), String(a), String(e * mult)],
-trapNote: "Common trap: solving for $b = " + (e * mult) + "$ instead of the ratio $\frac{a}{d} = " + mult + "$.",
-hint: "Type both equations into Desmos, add a slider for b, and adjust it until the two lines overlap completely.",
-solution: "Fast Algebra Method: Compare the constants or $x$-coefficients: $\frac{" + a + "}{" + d + "} = " + mult + "$.
+      if (!raw || String(raw).trim() === "") {
+        fb.style.color = "var(--danger)";
+        fb.innerText = currentProblem.isMC ? "Select an option (A–D) first." : "Please enter a valid number or fraction.";
+        return;
+      }
 
-Desmos Trick: Graph both equations with a slider for $b$; at $b = " + (e * mult) + "$, the lines overlap."
-};
-} else if (variant === 2) {
-return {
-topic: type,
-badge: "Linear Systems • No Solution",
-text: "In the system of linear equations below, $k$ is a constant. If the system has no solution, what is the value of $k$? $$" + a + "x - ky = " + c + "$$ $$" + d + "x - " + e + "y = " + (f + 7) + "$$",
-answerVal: e * mult,
-answerDisplay: String(e * mult),
-distractors: [String(mult), String(-e * mult), String(e + mult)],
-trapNote: "Common trap: forgetting the negative sign on both $y$-terms or picking the scale factor $" + mult + "$ instead of $k$.",
-hint: "For no solution, the lines must be parallel. Use a slider for k in Desmos until they never intersect.",
-solution: "Fast Algebra Method: Set ratios equal: $\frac{" + a + "}{" + d + "} = \frac{k}{" + e + "} = " + mult + " \implies k = " + (e * mult) + "$.
+      var isCorrect = false;
+      if (currentProblem.isMC) {
+        isCorrect = (String(raw).trim() === String(currentProblem.answerDisplay).trim());
+      } else {
+        var val = parseFraction(raw);
+        if (isNaN(val)) { fb.style.color = "var(--danger)"; fb.innerText = "Invalid number format."; return; }
+        isCorrect = Math.abs(val - currentProblem.answerVal) < 0.001;
+      }
 
-Desmos Trick: Graph both lines with a slider for $k$; at $k = " + (e * mult) + "$, they are parallel."
-};
-} else {
-var bVal = e * mult;
-return {
-topic: type,
-badge: "Linear Systems • Constant Sum",
-text: "In the system below, $r$ and $s$ are constants. If the system has infinitely many solutions, what is the value of $r + s$? $$rx + " + bVal + "y = s$$ $$" + d + "x + " + e + "y = " + f + "$$",
-answerVal: a + c,
-answerDisplay: String(a + c),
-distractors: [String(d + f), String(a * c), String(mult)],
-trapNote: "Common trap: adding $" + d + " + " + f + "$ without multiplying by the scale factor $" + mult + "$.",
-hint: "Find the scale factor between the y-coefficients (" + bVal + " / " + e + "), then multiply both " + d + " and " + f + " by that factor.",
-solution: "Fast Algebra Method: Scale factor is $\frac{" + bVal + "}{" + e + "} = " + mult + "$. Thus $r = " + a + "$ and $s = " + c + "$, so $r + s = " + (a + c) + "$."
-};
-}
-} else if (type === "discriminant") {
-var cVal = randInt(8, 35);
-var maxB = Math.floor(Math.sqrt(4 * cVal - 0.01));
-if (variant === 1) {
-return {
-topic: type,
-badge: "Quadratics • Zero Real Solutions",
-text: "In the equation $x^2 + bx + " + cVal + " = 0$, $b$ is a positive integer constant. If the equation has no real solutions, what is the greatest possible value of $b$?",
-answerVal: maxB,
-answerDisplay: String(maxB),
-distractors: [String(maxB + 1), String(maxB - 1), String(cVal)],
-trapNote: "Common trap: picking $" + (maxB + 1) + "$, which makes $b^2 > 4ac$ (giving two real solutions instead of zero).",
-hint: "Graph y = x^2 + bx + " + cVal + " with a slider for b and find the largest integer where the parabola stays above the x-axis.",
-solution: "Algebra Method: Set $b^2 - 4ac < 0 \implies b^2 < " + (4 * cVal) + " \implies b < " + Math.sqrt(4 * cVal).toFixed(2) + "$. Greatest integer is " + maxB + "."
-};
-} else if (variant === 2) {
-var minB = maxB + 1;
-return {
-topic: type,
-badge: "Quadratics • Two Real Solutions",
-text: "In the equation $x^2 + bx + " + cVal + " = 0$, $b$ is a positive integer constant. If the equation has two distinct real solutions, what is the least possible value of $b$?",
-answerVal: minB,
-answerDisplay: String(minB),
-distractors: [String(maxB), String(minB + 1), String(4 * cVal)],
-trapNote: "Common trap: rounding down to $" + maxB + "$ instead of rounding up past $\sqrt{" + (4 * cVal) + "}$.",
-hint: "Set b^2 - 4ac > 0, or slide b in Desmos until the parabola crosses the x-axis twice.",
-solution: "Algebra Method: Set $b^2 - 4ac > 0 \implies b^2 > " + (4 * cVal) + " \implies b > " + Math.sqrt(4 * cVal).toFixed(2) + "$. Least integer is " + minB + "."
-};
-} else {
-var halfB = randInt(3, 9);
-var exactC = halfB * halfB;
-return {
-topic: type,
-badge: "Quadratics • One Real Solution",
-text: "In the equation $x^2 - " + (2 * halfB) + "x + c = 0$, $c$ is a constant. If the equation has exactly one real solution, what is the value of $c$?",
-answerVal: exactC,
-answerDisplay: String(exactC),
-distractors: [String(2 * halfB), String(halfB), String(4 * exactC)],
-trapNote: "Common trap: forgetting to square $\frac{b}{2} = " + halfB + "$.",
-hint: "For one real solution, the vertex sits directly on the x-axis (b^2 - 4ac = 0).",
-solution: "Algebra Method: Set $b^2 - 4ac = 0$: $(-" + (2 * halfB) + ")^2 - 4c = 0 \implies c = " + exactC + "$."
-};
-}
-} else if (type === "vertex") {
-var aVal = randInt(2, 4);
-var h = randInt(2, 6);
-var k = randInt(-10, -2);
-var x1 = h + 2;
-var y1 = aVal * Math.pow(x1 - h, 2) + k;
-if (variant === 1) {
-var ans = aVal + k;
-return {
-topic: type,
-badge: "Parabolas • Vertex Form Evaluation",
-text: "A quadratic function $f$ has a vertex at $(" + h + ", " + k + ")$ and passes through $(" + x1 + ", " + y1 + ")$. What is the value of $f(" + (h - 1) + ")$?",
-answerVal: ans,
-answerDisplay: String(ans),
-distractors: [String(k), String(aVal), String(aVal - k)],
-trapNote: "Common trap: stopping after finding $a = " + aVal + "$ instead of evaluating $f(" + (h - 1) + ")$.",
-hint: "Type f(x) = a(x - " + h + ")^2 + (" + k + ") in Desmos, slide a to hit (" + x1 + ", " + y1 + "), then type f(" + (h - 1) + ").",
-solution: "Algebra Method: $f(x) = a(x - " + h + ")^2 + (" + k + ")$ gives $a = " + aVal + "$. Then $f(" + (h - 1) + ") = " + aVal + "(1) + (" + k + ") = " + ans + "$."
-};
-} else if (variant === 2) {
-var yInt = aVal * h * h + k;
-return {
-topic: type,
-badge: "Parabolas • y-Intercept from Minimum",
-text: "A quadratic function $g$ has a minimum value of $" + k + "$ at $x = " + h + "$, and $g(" + x1 + ") = " + y1 + "$. What is the value of $g(0)$?",
-answerVal: yInt,
-answerDisplay: String(yInt),
-distractors: [String(k), String(aVal * h + k), String(y1)],
-trapNote: "Common trap: assuming $g(0) = k$ (the vertex $y$-value) instead of plugging $x = 0$ into vertex form.",
-hint: "A minimum of " + k + " at x = " + h + " means the vertex is (" + h + ", " + k + ").",
-solution: "Algebra Method: $g(x) = " + aVal + "(x - " + h + ")^2 + (" + k + ") \implies g(0) = " + aVal + "(" + (h * h) + ") + (" + k + ") = " + yInt + "$."
-};
-} else {
-var r1 = randInt(1, 4);
-var r2 = r1 + randInt(2, 6);
-var vertexX = (r1 + r2) / 2;
-return {
-topic: type,
-badge: "Parabolas • Axis of Symmetry",
-text: "A parabola passes through $(" + r1 + ", 0)$, $(" + r2 + ", 0)$, and $(" + (r2 + 2) + ", " + (aVal * 2 * (r2 + 2 - r1)) + ")$. What is the $x$-coordinate of the parabola's vertex?",
-answerVal: vertexX,
-answerDisplay: String(vertexX),
-distractors: [String(r1 + r2), String((r2 - r1) / 2), String(aVal)],
-trapNote: "Common trap: subtracting the roots instead of averaging them.",
-hint: "The x-coordinate of the vertex is always the exact midpoint of the two x-intercepts.",
-solution: "Symmetry Rule: Average the two $x$-intercepts: $h = \frac{" + r1 + " + " + r2 + "}{2} = " + vertexX + "$."
-};
-}
-} else if (type === "circles") {
-var hc = randInt(2, 6);
-var kc = randInt(2, 6);
-var r = randInt(3, 7);
-var D = -2 * hc;
-var E = -2 * kc;
-var F = hc * hc + kc * kc - r * r;
-if (variant === 1) {
-return {
-topic: type,
-badge: "Circles • Radius from General Form",
-text: "In the $xy$-plane, the graph of $x^2 " + D + "x + y^2 " + E + "y + (" + F + ") = 0$ is a circle. What is the radius of the circle?",
-answerVal: r,
-answerDisplay: String(r),
-distractors: [String(r * r), String(2 * r), String(Math.abs(F))],
-trapNote: "Common trap: forgetting to take the square root of $r^2 = " + (r * r) + "$.",
-hint: "Graph the equation in Desmos, click the top and bottom points of the circle, and divide the diameter by 2.",
-solution: "Completing the Square: $(x - " + hc + ")^2 + (y - " + kc + ")^2 = " + (r * r) + " \implies r = " + r + "$."
-};
-} else if (variant === 2) {
-return {
-topic: type,
-badge: "Circles • Center Coordinate Sum",
-text: "In the $xy$-plane, the equation $x^2 " + D + "x + y^2 " + E + "y + (" + F + ") = 0$ defines a circle with center $(h, k)$. What is the value of $h + k$?",
-answerVal: hc + kc,
-answerDisplay: String(hc + kc),
-distractors: [String(-(hc + kc)), String(D + E), String(r)],
-trapNote: "Common trap: forgetting to flip the signs from $(x - h)^2 + (y - k)^2$.",
-hint: "Take half of the x- and y-coefficients and flip their signs to get (h, k).",
-solution: "Completing the Square: Center is $(" + hc + ", " + kc + ")$, so $h + k = " + (hc + kc) + "$."};
-} else {
-var newR = r + 2;
-var targetConst = newR * newR - hc * hc - kc * kc;
-return {
-topic: type,
-badge: "Circles • Target Radius Constant",
-text: "In the $xy$-plane, the graph of $x^2 " + D + "x + y^2 " + E + "y = c$ is a circle with radius $" + newR + "$. What is the value of $c$?",
-answerVal: targetConst,
-answerDisplay: String(targetConst),
-distractors: [String(newR * newR), String(newR), String(hc * hc + kc * kc)],
-trapNote: "Common trap: setting $c = r^2 = " + (newR * newR) + "$ without adding $(D/2)^2 + (E/2)^2 = " + (hc * hc + kc * kc) + "$ to the right side.",
-hint: "Complete the square on the left side by adding " + (hc * hc + kc * kc) + " to both sides.",
-solution: "Completing the Square: $c + " + (hc * hc + kc * kc) + " = " + (newR * newR) + " \implies c = " + targetConst + "$."
-};
-}
-} else if (type === "exponential") {
-var initial = randInt(2, 9) * 100;
-var pct = randInt(4, 18);
-var base = (1 + pct / 100).toFixed(2);
-var years = randInt(3, 6);
-if (variant === 1) {
-return {
-topic: type,
-badge: "Exponentials • Percent Growth Rate",
-text: "The function $P(t) = " + initial + "(" + base + ")^{\frac{t}{" + years + "}}$ models a population $t$ years after 2020. By what percent does the population increase every " + years + " years?",
-answerVal: pct,
-answerDisplay: String(pct),
-distractors: [(pct / years).toFixed(1), String(pct * years), base],
-trapNote: "Common trap: dividing $" + pct + "\%$ by $" + years + "$ even though the question already asks for the increase every $" + years + "$ years.",
-hint: "Every time t increases by " + years + ", the exponent becomes 1.",
-solution: "Exponent Structure Rule: Every $" + years + "$ years, $P(t)$ multiplies by $" + base + "$, which is a " + pct + "% increase."
-};
-} else if (variant === 2) {
-return {
-topic: type,
-badge: "Exponentials • Time Interval Scaling",
-text: "The function $P(t) = " + initial + "(" + base + ")^{\frac{t}{" + years + "}}$ models a population $t$ years after 2020. Every $n$ years, the population increases by $" + pct + "\%$. What is the value of $n$?",
-answerVal: years,
-answerDisplay: String(years),
-distractors: [String(pct), "1", String(years * 2)],
-trapNote: "Common trap: entering the percent $" + pct + "$ instead of the time period $n = " + years + "$.",
-hint: "Set the exponent t / " + years + " equal to 1.",
-solution: "Exponent Structure Rule: Setting $\frac{t}{" + years + "} = 1$ gives $n = " + years + "$."
-};
-} else {
-var decayPct = randInt(8, 25);
-var decayBase = (1 - decayPct / 100).toFixed(2);
-var months = randInt(2, 5);
-return {
-topic: type,
-badge: "Exponentials • Percent Decay Rate",
-text: "The mass $M(t) = " + initial + "(" + decayBase + ")^{\frac{t}{" + months + "}}$ models a substance $t$ months into an experiment. By what percent does the mass decrease every " + months + " months?",
-answerVal: decayPct,
-answerDisplay: String(decayPct),
-distractors: [String(Math.round(Number(decayBase) * 100)), (decayPct / months).toFixed(1), String(months)],
-trapNote: "Common trap: entering $" + Math.round(Number(decayBase) * 100) + "\%$ (the remaining amount) instead of $" + decayPct + "\%$ (the decrease).",
-hint: "Subtract the base (" + decayBase + ") from 1 to find the decimal decay rate.",
-solution: "Decay Rate Rule: $1 - " + decayBase + " = " + (decayPct / 100).toFixed(2) + " \implies " + decayPct + "% decrease."
-};
-}
-} else if (type === "trig") {
-var triples = [,,,];
-var t = triples[randInt(0, triples.length - 1)];
-if (variant === 1) {
-var num = randInt(3, 8);
-var den = randInt(num + 1, 13);
-return {
-topic: type,
-badge: "Trig • Complementary Angles",
-text: "In right triangle $ABC$, angle $C$ is $90^\circ$ and $\sin(A) = \frac{" + num + "}{" + den + "}$. What is the value of $\cos(B)$?",
-answerVal: num / den,
-answerDisplay: num + "/" + den,
-distractors: [den + "/" + num, "1", (den - num) + "/" + den],
-trapNote: "Common trap: flipping the fraction to $\frac{" + den + "}{" + num + "}$ instead of applying $\sin(A) = \cos(B)$.",
-hint: "In a right triangle with C = 90°, angles A and B add up to 90°, so sin(A) = cos(B).",
-solution: "Complementary Angle Identity: Since $A + B = 90^\circ$, $\sin(A) = \cos(B) = \frac{" + num + "}{" + den + "}$."};
-} else if (variant === 2) {
-return {
-topic: type,
-badge: "Trig • Pythagorean Triple Ratio",
-text: "In right triangle $ABC$, angle $C$ is $90^\circ$ and $\sin(A) = \frac{" + t + "}{" + t + "}$. What is the value of $\tan(B)$?",
-answerVal: t / t,
-answerDisplay: t + "/" + t,
-distractors: [t + "/" + t, t + "/" + t, t + "/" + t],
-trapNote: "Common trap: computing $\tan(A) = \frac{" + t + "}{" + t + "}$ instead of $\tan(B) = \frac{" + t + "}{" + t + "}$.",
-hint: "Use the " + t + "-" + t + "-" + t + " right triangle: opposite to B is " + t + " and adjacent to B is " + t + ".",
-solution: "Pythagorean Triple (" + t + "-" + t + "-" + t + "): Side opposite $B$ is $" + t + "$ and adjacent to $B$ is $" + t + "$, so $\tan(B) = \frac{" + t + "}{" + t + "}$."
-};
-} else {
-return {
-topic: type,
-badge: "Trig • Cofunction Sum",
-text: "In right triangle $ABC$, angle $C$ is $90^\circ$ and $\cos(A) = \frac{" + t + "}{" + t + "}$. What is the value of $\sin(B) + \cos(A)$?",
-answerVal: (2 * t) / t,
-answerDisplay: (2 * t) + "/" + t,
-distractors: [t + "/" + t, "1", (t + t) + "/" + t],
-trapNote: "Common trap: assuming $\sin(B) + \cos(A) = 1$.",
-hint: "Because A + B = 90°, sin(B) equals cos(A).",
-solution: "Cofunction Identity: $\sin(B) = \cos(A) = \frac{" + t + "}{" + t + "}$, so their sum is $\frac{" + t + "}{" + t + "} + \frac{" + t + "}{" + t + "} = \frac{" + (2 * t) + "}{" + t + "}$."
-};
-}
-} else if (type === "regression") {
-var aReg = randInt(2, 4);
-var bReg = randInt(-5, 5);
-var cReg = randInt(1, 8);
-var y0 = cReg;
-var y1 = aReg + bReg + cReg;
-var y2 = 4 * aReg + 2 * bReg + cReg;
-if (variant === 1) {
-return {
-topic: type,
-badge: "Desmos Regression • Quadratic Coefficients",
-text: "A quadratic function $f(x) = ax^2 + bx + c$ passes through $(0, " + y0 + ")$, $(1, " + y1 + ")$, and $(2, " + y2 + ")$. What is the value of $a + b + c$?",
-answerVal: y1,
-answerDisplay: String(y1),
-distractors: [String(y0), String(y2), String(aReg + bReg)],
-trapNote: "Shortcut: $f(1) = a(1)^2 + b(1) + c = a + b + c$, which is directly given as $(1, " + y1 + ")$!",
-hint: "Notice that plugging x = 1 into ax^2 + bx + c gives a + b + c—or run a table regression y1 ~ ax1^2 + bx1 + c in Desmos.",
-solution: "1-Second Pattern: $f(1) = a + b + c = " + y1 + "$.
+      answeredCurrent = true;
+      clearInterval(timerInterval);
 
-Desmos Regression: Add a table with $(0, " + y0 + "), (1, " + y1 + "), (2, " + y2 + ")$ and type $y_1 \sim ax_1^2 + bx_1 + c$ to get $a = " + aReg + ", b = " + bReg + ", c = " + cReg + "$."
-};
-} else {
-var y3 = 9 * aReg + 3 * bReg + cReg;
-return {
-topic: type,
-badge: "Desmos Regression • Predict f(3)",
-text: "A quadratic table contains the points $(0, " + y0 + ")$, $(1, " + y1 + ")$, and $(2, " + y2 + ")$. If $f(x) = ax^2 + bx + c$, what is the value of $f(3)$?",
-answerVal: y3,
-answerDisplay: String(y3),
-distractors: [String(y2 + (y2 - y1)), String(y3 - aReg), String(aReg)],
-trapNote: "Common trap: treating the table as linear and just adding the previous difference $(" + (y2 - y1) + ")$.",
-hint: "Insert a table (+) in Desmos with the 3 points, type y1 ~ ax1^2 + bx1 + c, then evaluate a(3)^2 + b(3) + c.",
-solution: "Desmos Regression: Regressing the 3 points gives $f(x) = " + aReg + "x^2 + (" + bReg + ")x + " + cReg + "$. Evaluating $f(3) = " + y3 + "$."
-};
-}
-} else {
-// Geometry: Similar Triangles & Circle Arcs
-if (variant === 1) {
-var scale = randInt(2, 4);
-var base1 = randInt(4, 9);
-var base2 = base1 * scale;
-var area1 = randInt(10, 25);
-var area2 = area1 * scale * scale;
-return {
-topic: type,
-badge: "Geometry • Similar Triangle Area Scaling",
-text: "Triangle $DEF$ is similar to triangle $ABC$, where side $DE$ corresponds to side $AB$. If $AB = " + base1 + "$, $DE = " + base2 + "$, and the area of $\triangle ABC$ is $" + area1 + "$, what is the area of $\triangle DEF$?",
-answerVal: area2,
-answerDisplay: String(area2),
-distractors: [String(area1 * scale), String(area1 + scale), String(area2 * 2)],
-trapNote: "Common trap: multiplying the area by the linear scale factor $" + scale + "$ instead of $k^2 = " + (scale * scale) + "$.",
-hint: "When side lengths scale by k, area scales by k^2.",
-solution: "Area Scaling Rule: Linear scale factor is $k = \frac{" + base2 + "}{" + base1 + "} = " + scale + "$. Area scales by $k^2 = " + (scale * scale) + "$, so $\text{Area} = " + area1 + "(" + (scale * scale) + ") = " + area2 + "$."
-};} else {
-var deg = [30, 45, 60, 90, 120][randInt(0, 4)];
-var rad = randInt(3, 12);
-// Ask for arc length / pi
-var arcOverPi = (deg / 360) * 2 * rad;
-return {
-topic: type,
-badge: "Geometry • Circle Arc Length",
-text: "A circle has radius $" + rad + "$. An arc on the circle subtends a central angle of $" + deg + "^\circ$. If the length of the arc is written as $k\pi$, what is the value of $k$?",
-answerVal: arcOverPi,
-answerDisplay: String(arcOverPi),
-distractors: [String((deg / 360) * rad * rad), String(2 * rad), String(deg / 60)],
-trapNote: "Common trap: using sector area $\pi r^2$ instead of circumference $2\pi r$.",
-hint: "Arc length = (central angle / 360) * 2 * pi * r.",
-solution: "Arc Length Formula: $L = \frac{" + deg + "}{360} \cdot 2\pi(" + rad + ") = " + arcOverPi + "\pi \implies k = " + arcOverPi + "$."
-};
-}
-}
-}
-function generateProblem() {
-document.getElementById("feedback").innerText = "";
-document.getElementById("solution-box").style.display = "none";
-selectedMC = null;
-answeredCurrent = false;
-if (currentTopic === "missed") {
-if (missedQueue.length === 0) {
-currentProblem = null;
-document.getElementById("question-text").innerHTML = "Missed Queue is empty! You cleared every missed pattern. Pick any skill on the left to keep practicing.";
-document.getElementById("answer-area").innerHTML = "";
-return;
-}
-currentProblem = missedQueue[0];
-} else {
-var chosenType = (currentTopic === "all") ? allTopics[randInt(0, allTopics.length - 1)] : currentTopic;
-currentProblem = buildQuestion(chosenType);
-}
-var useMC = (formatMode === "mc") || (formatMode === "mixed" && Math.random() < 0.45);
-currentProblem.isMC = useMC;
-document.getElementById("pattern-badge").innerText = currentProblem.badge;
-document.getElementById("mode-badge").innerText = useMC ? "Multiple Choice" : "Student-Produced Response";
-document.getElementById("question-text").innerHTML = currentProblem.text;
-var area = document.getElementById("answer-area");
-if (!useMC) {
-area.innerHTML = '';
-var inp = document.getElementById("user-answer");
-inp.focus();
-} else {
-var opts = [currentProblem.answerDisplay].concat(currentProblem.distractors.slice(0, 3));
-opts.sort(function() { return Math.random() - 0.5; });
-var letters = ["A", "B", "C", "D"];
-var html = '';
-opts.forEach(function(opt, idx) {
-html += '' +
-'' + letters[idx] + '' + opt + '' +
-'ABC' +
-'';
-});
-html += '';
-area.innerHTML = html;
-}
-startTimer();
-renderMath();
-}
-function selectMC(el) {
-if (answeredCurrent) return;
-el.classList.remove("eliminated");
-document.querySelectorAll(".mc-option").forEach(function(o) { o.classList.remove("selected"); });
-el.classList.add("selected");
-selectedMC = el.getAttribute("data-val");
-}function toggleElim(btn) {
-var opt = btn.parentElement.querySelector(".mc-option");
-opt.classList.toggle("eliminated");
-if (opt.classList.contains("eliminated") && opt.classList.contains("selected")) {
-opt.classList.remove("selected");
-selectedMC = null;
-}
-}
-function parseFraction(str) {
-str = String(str).trim().replace("%", "");
-var slashIdx = str.indexOf("/");
-if (slashIdx > 0) {
-var num = Number(str.slice(0, slashIdx));
-var den = Number(str.slice(slashIdx + 1));
-if (!isNaN(num) && !isNaN(den) && den !== 0) return num / den;
-}
-return Number(str);
-}
-function checkAnswer() {
-if (!currentProblem) return;
-if (answeredCurrent) {
-generateProblem();
-return;
-}
-var fb = document.getElementById("feedback");
-var solBox = document.getElementById("solution-box");
-var raw = currentProblem.isMC ? selectedMC : document.getElementById("user-answer").value;
-if (!raw || String(raw).trim() === "") {
-fb.style.color = "var(--danger)";
-fb.innerText = currentProblem.isMC ? "Select an option (A–D) first." : "Please enter a valid number or fraction.";
-return;
-}
-var isCorrect = false;
-if (currentProblem.isMC) {
-isCorrect = (String(raw).trim() === String(currentProblem.answerDisplay).trim());
-} else {
-var val = parseFraction(raw);
-if (isNaN(val)) {
-fb.style.color = "var(--danger)";
-fb.innerText = "Invalid number format.";
-return;
-}
-isCorrect = Math.abs(val - currentProblem.answerVal) < 0.001;
-}
-answeredCurrent = true;
-clearInterval(timerInterval);
-if (currentProblem.isMC) {
-document.querySelectorAll(".mc-option").forEach(function(o) {
-if (o.getAttribute("data-val") === currentProblem.answerDisplay) o.classList.add("correct");
-else if (o.classList.contains("selected")) o.classList.add("wrong");
-});
-}
-if (isCorrect) {
-fb.style.color = "var(--success)";
-fb.innerText = "Correct! (" + currentProblem.answerDisplay + ")";
-streak++;
-solved++;
-mastery[currentProblem.topic] = Math.min(5, (mastery[currentProblem.topic] || 0) + 1);
-if (currentTopic === "missed" && missedQueue.length > 0) missedQueue.shift();
-} else {
-fb.style.color = "var(--danger)";
-fb.innerText = "Incorrect — exact answer is " + currentProblem.answerDisplay + ".";
-streak = 0;
-mastery[currentProblem.topic] = Math.max(0, (mastery[currentProblem.topic] || 0) - 1);
-if (currentTopic !== "missed") missedQueue.push(currentProblem);
-}
-document.getElementById("streak-text").innerText = "Streak: " + streak;
-document.getElementById("score-text").innerText = "Solved: " + solved;
-updateSidebarUI();
-var trapHtml = (currentProblem.isMC && currentProblem.trapNote) ? "
+      if (currentProblem.isMC) {
+        document.querySelectorAll(".mc-option").forEach(function(o) {
+          if (o.getAttribute("data-val") === currentProblem.answerDisplay) o.classList.add("correct");
+          else if (o.classList.contains("selected")) o.classList.add("wrong");
+        });
+      }
 
-" + currentProblem.trapNote + "" : "";
-solBox.innerHTML = currentProblem.solution + trapHtml;
-solBox.style.display = "block";
-renderMath();
-}
-// Global Keyboard Shortcuts (Enter to submit -> Enter again for next; 1-4 for MC)
-document.addEventListener("keydown", function(e) {
-if (e.key === "Enter") {
-e.preventDefault();
-if (!answeredCurrent) checkAnswer();
-else generateProblem();
-} else if (currentProblem && currentProblem.isMC && !answeredCurrent && ["1", "2", "3", "4"].includes(e.key)) {
-var opts = document.querySelectorAll(".mc-option");
-var idx = Number(e.key) - 1;
-if (opts[idx]) selectMC(opts[idx]);
-}
-});document.getElementById("menu-btn").addEventListener("click", function() {
-document.getElementById("sidebar").classList.toggle("collapsed");
-});
-document.getElementById("format-btn").addEventListener("click", function() {
-if (formatMode === "mixed") {
-formatMode = "grid";
-this.innerText = "Format: Grid-In Only";
-} else if (formatMode === "grid") {
-formatMode = "mc";
-this.innerText = "Format: Multiple Choice";
-} else {
-formatMode = "mixed";
-this.innerText = "Format: Mixed";
-}
-generateProblem();
-});
-document.getElementById("ref-btn").addEventListener("click", function() {
-var box = document.getElementById("ref-box");
-box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
-renderMath();
-});
-document.getElementById("hint-btn").addEventListener("click", function() {
-if (!currentProblem) return;
-var solBox = document.getElementById("solution-box");
-solBox.innerHTML = "Desmos Hint: " + currentProblem.hint;
-solBox.style.display = "block";
-renderMath();
-});
-document.getElementById("desmos-btn").addEventListener("click", function() {
-var panel = document.getElementById("desmos-panel");
-var ws = document.getElementById("workspace");
-if (panel.style.display === "none") {
-panel.style.display = "block";
-ws.classList.add("split");
-this.innerText = "Hide Desmos";
-if (!desmosLoaded) {
-document.getElementById("calculator").innerHTML = '';
-desmosLoaded = true;
-}
-} else {
-panel.style.display = "none";
-ws.classList.remove("split");
-this.innerText = "Desmos Calculator";
-}
-});
-document.getElementById("share-btn").addEventListener("click", function() {
-var btn = this;
-navigator.clipboard.writeText(window.location.href).then(function() {
-btn.innerText = "Copied Link!";
-setTimeout(function() { btn.innerText = "Share Link"; }, 1800);
-});
-});
-document.getElementById("reset-btn").addEventListener("click", function() {
-mastery = Object.assign({}, defaultMastery);
-missedQueue = [];
-streak = 0;
-solved = 0;
-document.getElementById("streak-text").innerText = "Streak: 0";
-document.getElementById("score-text").innerText = "Solved: 0";
-updateSidebarUI();
-generateProblem();
-});document.getElementById("new-btn").addEventListener("click", generateProblem);
-document.getElementById("check-btn").addEventListener("click", checkAnswer);
-updateSidebarUI();
-generateProblem();
+      if (isCorrect) {
+        fb.style.color = "var(--success)";
+        fb.innerText = "Correct! (" + currentProblem.answerDisplay + ")";
+        streak++; solved++;
+        mastery[currentProblem.topic] = Math.min(5, (mastery[currentProblem.topic] || 0) + 1);
+        if (currentTopic === "missed" && missedQueue.length > 0) missedQueue.shift();
+      } else {
+        fb.style.color = "var(--danger)";
+        fb.innerText = "Incorrect — exact answer is " + currentProblem.answerDisplay + ".";
+        streak = 0;
+        mastery[currentProblem.topic] = Math.max(0, (mastery[currentProblem.topic] || 0) - 1);
+        if (currentTopic !== "missed") missedQueue.push(currentProblem);
+      }
+
+      document.getElementById("streak-text").innerText = "Streak: " + streak;
+      document.getElementById("score-text").innerText = "Solved: " + solved;
+      updateSidebarUI();
+      var trapHtml = (currentProblem.isMC && currentProblem.trapNote) ? "<br><br><em>" + currentProblem.trapNote + "</em>" : "";
+      solBox.innerHTML = currentProblem.solution + trapHtml;
+      solBox.style.display = "block";
+      renderMath();
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (!answeredCurrent) checkAnswer();
+        else generateProblem();
+      } else if (currentProblem && currentProblem.isMC && !answeredCurrent && ["1", "2", "3", "4"].includes(e.key)) {
+        var opts = document.querySelectorAll(".mc-option");
+        var idx = Number(e.key) - 1;
+        if (opts.item(idx)) selectMC(opts.item(idx));
+      }
+    });
+
+    document.getElementById("menu-btn").addEventListener("click", function() { document.getElementById("sidebar").classList.toggle("collapsed"); });
+    document.getElementById("format-btn").addEventListener("click", function() {
+      if (formatMode === "mixed") { formatMode = "grid"; this.innerText = "Format: Grid-In Only"; }
+      else if (formatMode === "grid") { formatMode = "mc"; this.innerText = "Format: Multiple Choice"; }
+      else { formatMode = "mixed"; this.innerText = "Format: Mixed"; }
+      generateProblem();
+    });
+    document.getElementById("ref-btn").addEventListener("click", function() {
+      var box = document.getElementById("ref-box");
+      box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
+      renderMath();
+    });
+    document.getElementById("hint-btn").addEventListener("click", function() {
+      if (!currentProblem) return;
+      var solBox = document.getElementById("solution-box");
+      solBox.innerHTML = "<strong>Desmos Hint:</strong> " + currentProblem.hint;
+      solBox.style.display = "block";
+      renderMath();
+    });
+    document.getElementById("desmos-btn").addEventListener("click", function() {
+      var panel = document.getElementById("desmos-panel");
+      var ws = document.getElementById("workspace");
+      if (panel.style.display === "none") {
+        panel.style.display = "block"; ws.classList.add("split"); this.innerText = "Hide Desmos";
+        if (!desmosLoaded) {
+          document.getElementById("calculator").innerHTML = '<iframe src="https://desmos.com" width="100%" height="520" style="border:none; border-radius:8px;"></iframe>';
+          desmosLoaded = true;
+        }
+      } else { panel.style.display = "none"; ws.classList.remove("split"); this.innerText = "Desmos Calculator"; }
+    });
+    document.getElementById("share-btn").addEventListener("click", function() {
+      var btn = this;
+      navigator.clipboard.writeText(window.location.href).then(function() {
+        btn.innerText = "Copied Link!"; setTimeout(function() { btn.innerText = "Share Link"; }, 1800);
+      });
+    });
+    document.getElementById("reset-btn").addEventListener("click", function() {
+      mastery = Object.assign({}, defaultMastery); missedQueue = []; streak = 0; solved = 0;
+      document.getElementById("streak-text").innerText = "Streak: 0";
+      document.getElementById("score-text").innerText = "Solved: 0";
+      updateSidebarUI(); generateProblem();
+    });
+    document.getElementById("new-btn").addEventListener("click", generateProblem);
+    document.getElementById("check-btn").addEventListener("click", checkAnswer);
+
+    updateSidebarUI();
+    generateProblem();
+  </script>
+</body>
+</html>
