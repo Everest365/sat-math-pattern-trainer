@@ -680,8 +680,10 @@
     document.getElementById("new-btn").addEventListener("click", generateProblem);
     document.getElementById("check-btn").addEventListener("click", checkAnswer);
 
-    updateSidebarUI();
-    generateProblem();
+       window.addEventListener("load", function() {
+      updateSidebarUI();
+      generateProblem();
+    });
   </script>
 </body>
 </html>
